@@ -1,0 +1,6 @@
+@use "_variables.scss" as *;
+
+h1 {
+    font-family: $header-font;
+    color: $main;
+}

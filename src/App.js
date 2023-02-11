@@ -7,17 +7,21 @@ import Form from './Components/Form'
 
 // style sheets
 import './App.scss';
+import Results from './Components/Results';
 
 function App() {
   const [word, setWord] = useState('')
   const [input, setInput] = useState('')
+  const [results, setResults] = useState([])
 
   const handleSubmit = (e)=>{
     e.preventDefault()
     setWord(input)
+    setInput('');
   }
   
   useEffect(()=>{
+    if (word.length === 0 ) return
     console.log([...word])
     const inputLetterArray = [...word]
     const fetchWord = async(letter) => {
@@ -31,23 +35,33 @@ function App() {
         sp:`${letter}*`
       },
       }).then((res) => {
-      console.log(res);
+        return res.data
+  
+      }).catch(error=>{
+        return []
       })
       return wordArray
-
     }
-    inputLetterArray.forEach(letter => {
-      console.log(fetchWord(letter))
+    const getWordsByLetter = async() => {
+      const results = await Promise.all(inputLetterArray.map(letter => {
+        return (fetchWord(letter))
+      })
+      ) 
+      setResults(results)
+      console.log(results)
+    }
+    getWordsByLetter();
 
-    })
-    
   },[word])
 
 
   return (
-    <div className="App">
-      <h1>Backronyms</h1>
-      <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
+    <div className='App'>
+      <div className='wrapper'>
+        <h1>Backronyms</h1>
+        <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
+        <Results results={results}/>
+      </div>
     </div>
   );
 }

@@ -4,7 +4,7 @@ const Form = ({ handleSubmit, setInput, input}) => {
         onSubmit={handleSubmit}>
             <label htmlFor='acronym' className='sr-only'></label>
             <input 
-            type='text' 
+            type='text'
             id ='acronym' 
             placeholder='Enter a Word'
             onChange={(e)=> setInput(e.target.value)}

@@ -16,11 +16,19 @@ function App() {
   const [input, setInput] = useState('');
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [validInput, setValidInput] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setWord(input);
-    setInput('');
+    const validInput = /^[A-Za-z]{2,6}$/
+    if (validInput.test(input)) {
+      setValidInput(true);
+      setWord(input);
+      setInput('');
+    } else {
+      setResults([])
+      setValidInput(false);
+    }
   }
 
   useEffect(() => {
@@ -62,6 +70,7 @@ function App() {
       <div className='wrapper'>
         <h1>Backronyms</h1>
         <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
+        { validInput ? null : <p>bad input dude</p>}
         { isLoading ? <p>Loading...Ï</p> : <Results results={results} />}
         <SavedBackronyms />
       </div>

@@ -1,9 +1,9 @@
 
 // Modules
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 // Components
-import Form from './Components/Form'
+import Form from './Components/Form';
 
 // style sheets
 import './App.scss';
@@ -17,7 +17,7 @@ function App() {
   const handleSubmit = (e)=>{
     e.preventDefault()
     setWord(input)
-    setInput('');
+    setInput(''); 
   }
   
   useEffect(()=>{
@@ -30,8 +30,8 @@ function App() {
       url: "https://api.datamuse.com/words",
       // method: "GET",
       // dataResponse: "json",
-      params: {
-        // ml:'apple',
+      params: { 
+       ml: word,
         sp:`${letter}*`
       },
       }).then((res) => {
@@ -48,19 +48,20 @@ function App() {
       })
       ) 
       setResults(results)
-      console.log(results)
+     
     }
     getWordsByLetter();
 
   },[word])
 
+  
 
   return (
     <div className='App'>
       <div className='wrapper'>
         <h1>Backronyms</h1>
         <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
-        <Results results={results}/>
+        <Results results={results}/> 
       </div>
     </div>
   );

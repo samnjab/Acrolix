@@ -45,7 +45,7 @@ const Results = ({ results }) => {
             return backronymArray;
         })
         setBackronymToDisplay(backronymResult);
-    }, [randomize]);
+    }, [randomize, results]);
 
     const randomItem = (array) => {
         setLiked(false);
@@ -82,17 +82,10 @@ const Results = ({ results }) => {
         setRandomize(!randomize);
     };
 
-
     return (
-        <>
-            {backronymToDisplay.map((letter, index) => {
-                return <ul key={index}>
-                    {letter.map((word) => {
-                        return <li key={word.score}>
-                            {word.word}
-                        </li>
-                    })}
-                </ul>
+        <ul>
+            {backronymToDisplay.map((index, i) => {
+                return <li key={`${index[0].score}${i}`}>{index[0].word}</li>
             })}
             <button >
                 {liked ?
@@ -100,7 +93,7 @@ const Results = ({ results }) => {
                 : <i className="fa-regular fa-heart" onClick={handleLike}></i>}
             </button>
             <button onClick={handleRandom}>random</button>
-        </>
+        </ul>
     );
 }
 

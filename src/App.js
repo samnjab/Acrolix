@@ -12,6 +12,7 @@ import SavedBackronyms from './Components/SavedBackronyms';
 import './App.scss';
 
 function App() {
+  const [theme, setTheme] = useState('light');
   const [word, setWord] = useState('');
   const [input, setInput] = useState('');
   const [results, setResults] = useState([]);
@@ -63,11 +64,25 @@ function App() {
 
   }, [word]);
 
+  // LIGHT/DARK FUNCTION
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+    };
+    
+    useEffect(() => {
+      document.body.className = theme;
+    }, [theme]);
+
 
 
   return (
-    <div className='App'>
+    <div className={`App ${theme}`}>
       <div className='wrapper'>
+        <button onClick={toggleTheme}>toggle mode</button>
         <h1>Backronyms</h1>
         <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
         { validInput ? null : <p>bad input dude</p>}

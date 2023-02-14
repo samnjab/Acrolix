@@ -1,6 +1,12 @@
 @use "_variables.scss" as *;
 
+html {
+    background-color: $darkBackground;
+    font-family: $body-font;
+    color: $darkBodyText;
+}
+
 h1 {
     font-family: $header-font;
-    color: $main;
+    color: $red;
 }

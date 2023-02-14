@@ -1,8 +1,15 @@
 //colors
-$background: #f4E6E8;
-$main: #6056F9;
-$pop: #FF7600;
+$red: rgba(207, 42, 34, 1.00);
+$yellow: rgba(242, 184, 58, 1.00);
+
+//light theme
+$lightBackground: rgba(191, 211, 238, 1.00);
+$lightBodyText: rgba(34, 48, 95, 1.00);
+
+//dark theme
+$darkBackground: rgba(34, 48, 95, 1.00);
+$darkBodyText: rgba(205, 217, 228, 1.00);
 
 //fonts
-$header-font: 'Josefin Slab', serif;
-$body-font: 'Lato', sans-serif;
+$header-font: 'Orbitron', sans-serif;
+$body-font: 'Verdana', sans-serif;

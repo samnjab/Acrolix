@@ -32,7 +32,6 @@ const Results = ({ results }) => {
         const dbRef = ref(database);
         //push backronym to database
         const dbKey = push(dbRef, backronymToDisplay);
-
         //save key from current backronym to state
         setCurrentBackronymKey(dbKey.key);
     }

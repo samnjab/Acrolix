@@ -2,11 +2,15 @@
 // Modules
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Routes, Route, useNavigate, Link } from "react-router-dom";
 
 // Components
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
+import Loading from './Components/Loading';
+import BadInput from './Components/BadInput';
+import Error404 from './Components/Error404';
 
 // style sheets
 import './App.scss';
@@ -19,6 +23,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const validInput = /^[A-Za-z]{2,6}$/
@@ -26,6 +32,7 @@ function App() {
       setValidInput(true);
       setWord(input);
       setInput('');
+      navigate('/backronym');
     } else {
       setResults([])
       setWord('');
@@ -59,7 +66,7 @@ function App() {
       })
       )
       setResults(results);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
     getWordsByLetter();
 
@@ -78,17 +85,32 @@ function App() {
     document.body.className = theme;
   }, [theme]);
 
-
-
   return (
     <div className={`App ${theme}`}>
       <div className='wrapper'>
-        <h1>Backronyms</h1>
-        <button onClick={toggleTheme}>toggle mode</button>
-        <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
-        {validInput ? null : <p>bad input dude</p>}
-        {isLoading ? <p>Loading...Ï</p> : <Results results={results} />}
-        <SavedBackronyms />
+        <Link to="/">
+          <h1>Back To The Acronym</h1>
+        </Link>
+        <button onClick={toggleTheme}><i className="fa-solid fa-circle-half-stroke"></i></button>
+        <Routes>
+          <Route path='/' element={
+            <>
+              <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
+              {validInput ? null : <BadInput />}
+              <SavedBackronyms />
+            </>
+          } />
+
+          <Route path='backronym' element={
+            <>
+              <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
+              {validInput ? (isLoading ? <Loading /> : <Results results={results} />) : (<BadInput />)}
+              <SavedBackronyms />
+            </>
+          } />
+
+          <Route path='*' element={<Error404 />} />
+        </Routes>
       </div>
     </div>
   );

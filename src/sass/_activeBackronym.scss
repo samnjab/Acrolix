@@ -1,0 +1,44 @@
+@use "_variables.scss" as *;
+
+.activeResult {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    border: 8px solid;
+    border-image: $gradient;
+    padding: 20px;
+    background-color: $black;
+
+}
+.activeBackronym {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 15vh;
+    li {
+        margin: 5px;
+        color: $red;
+        font-family: $header-font;
+        font-size: 5rem;
+        font-weight: 800;
+        text-align: center;
+        font-style: italic;
+        text-transform: uppercase;
+        -webkit-text-stroke-width: 0.15rem;
+        -webkit-text-stroke-color: $teal;
+        text-shadow: $teal -20px 0px 39px;
+        &::first-letter {
+            font-size: 7rem;
+            padding-right: 20px;
+            margin-right: -20px;
+            background: -webkit-linear-gradient($yellow, $red, $red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke-color: $teal;
+            text-shadow: none;
+        }
+    }
+}

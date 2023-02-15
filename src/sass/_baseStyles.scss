@@ -1,7 +1,49 @@
 @use './variables' as *;
 
+html {
+    background-image: $darkBackgroundImage;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
 .wrapper {
     margin: 0 auto;
     max-width: 1100px;
     width: 90%;
 }
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+button {
+    //font
+    color: white;
+    font-size: 1.7rem;
+    text-shadow:
+    /*inner*/ 0 0 1px $black,
+    /*top*/   0 -1px 1px #aaa,
+    /*right*/ 1px 0 1px #aaa,
+    /*bottom*/ 0 1px 0 #666,
+    /*left*/ -1px 0 1px #aaa;
+    //button
+    margin: 3px;
+    border: 1px solid #d15249;
+    border-bottom-color: $darkRed;
+    padding: 9px 20px 4px 25px;
+    background-color: $red;
+    background-image: linear-gradient($red, $darkRed);
+    box-shadow: 0 1px 1px $darkRed;
+    transform: skewY(-0.7deg);
+    &:hover,
+    &:focus {
+        background-color: $darkRed;
+        background-image: linear-gradient($darkRed, $darkRed);
+        border-color: $darkRed;
+    }
+}
+
+.buttons:last-child { transform: skewY(-0.1deg); }

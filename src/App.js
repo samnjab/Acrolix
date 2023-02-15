@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // Components
+import Header from './Components/Header'
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
@@ -83,8 +84,7 @@ function App() {
   return (
     <div className={`App ${theme}`}>
       <div className='wrapper'>
-        <button onClick={toggleTheme}>toggle mode</button>
-        <h1>Backronyms</h1>
+        <Header toggleTheme={toggleTheme}/>
         <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
         { validInput ? null : <p>bad input dude</p>}
         { isLoading ? <p>Loading...Ï</p> : <Results results={results} />}

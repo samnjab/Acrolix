@@ -68,25 +68,25 @@ function App() {
   const toggleTheme = () => {
     if (theme === 'light') {
       setTheme('dark');
-      } else {
-        setTheme('light');
-      }
-    };
-    
-    useEffect(() => {
-      document.body.className = theme;
-    }, [theme]);
+    } else {
+      setTheme('light');
+    }
+  };
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
 
 
 
   return (
     <div className={`App ${theme}`}>
       <div className='wrapper'>
-        <button onClick={toggleTheme}>toggle mode</button>
         <h1>Backronyms</h1>
+        <button onClick={toggleTheme}>toggle mode</button>
         <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
-        { validInput ? null : <p>bad input dude</p>}
-        { isLoading ? <p>Loading...Ï</p> : <Results results={results} />}
+        {validInput ? null : <p>bad input dude</p>}
+        {isLoading ? <p>Loading...Ï</p> : <Results results={results} />}
         <SavedBackronyms />
       </div>
     </div>

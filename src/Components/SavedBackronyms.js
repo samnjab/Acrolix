@@ -1,6 +1,6 @@
 import firebase from '../firebase';
 import { useEffect, useState } from 'react';
-import { getDatabase, onValue, ref, push, remove } from 'firebase/database';
+import { getDatabase, onValue, ref, remove } from 'firebase/database';
 
 const SavedBackronyms = () => {
     const [backronymDb, setBackronymDb] = useState([]);

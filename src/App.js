@@ -28,6 +28,7 @@ function App() {
       setInput('');
     } else {
       setResults([])
+      setWord('');
       setValidInput(false);
     }
   }

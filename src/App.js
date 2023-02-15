@@ -85,7 +85,7 @@ function App() {
       <div className='wrapper'>
         <h1>Backronyms</h1>
         <button onClick={toggleTheme}>toggle mode</button>
-        <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
+        <Form handleSubmit={handleSubmit} setInput={setInput} input={input} validInput={validInput} />
         {validInput ? null : <p>bad input dude</p>}
         {isLoading ? <p>Loading...Ï</p> : <Results results={results} />}
         <SavedBackronyms />

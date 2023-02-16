@@ -8,14 +8,17 @@ import Header from './Components/Header'
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
+import { FaHeart, FaSun, FaMoon } from "react-icons/fa";
+import Toggle from './Components/Toggle';
 
 // style sheets
 import './App.scss';
 
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
   const [word, setWord] = useState('');
   const [input, setInput] = useState('');
+  const [context, setContext] = useState('')
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
@@ -27,6 +30,7 @@ function App() {
       setValidInput(true);
       setWord(input);
       setInput('');
+      setContext('')
     } else {
       setResults([])
       setWord('');
@@ -39,28 +43,38 @@ function App() {
     setIsLoading(true);
     const inputLetterArray = [...word];
     const fetchWord = async (letter) => {
-      const wordArray = await
+      try{
+        const wordArray = await
         axios({
           url: "https://api.datamuse.com/words",
           params: {
-            ml: word,
+            ml: context,
             sp: `${letter}*`
           },
-        }).then((res) => {
-          return res.data;
-
-        }).catch(error => {
-          return [];
         })
-      return wordArray;
+        console.log(wordArray.data)
+        return wordArray.data
+      }catch(error){
+          console.log('hit error', error)
+          return [];
+      }
+        // .then((res) => {
+        //   console.log(res.data)
+        //   return res.data;
+        // }).catch(error => {
+        //   console.log('hit error', error)
+        //   return [];
+        // })
     }
     const getWordsByLetter = async () => {
       const results = await Promise.all(inputLetterArray.map(letter => {
+  
         return (fetchWord(letter));
       })
       )
       setResults(results);
       setIsLoading(false);
+      console.log(results)
     }
     getWordsByLetter();
 
@@ -70,14 +84,14 @@ function App() {
   const toggleTheme = () => {
     if (theme === 'light') {
       setTheme('dark');
-      } else {
-        setTheme('light');
-      }
-    };
-    
-    useEffect(() => {
-      document.body.className = theme;
-    }, [theme]);
+    } else {
+      setTheme('light');
+    }
+  };
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
 
 
 
@@ -85,9 +99,15 @@ function App() {
     <div className={`App ${theme}`}>
       <div className='wrapper'>
         <Header toggleTheme={toggleTheme}/>
-        <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
-        { validInput ? null : <p>bad input dude</p>}
-        { isLoading ? <p>Loading...Ï</p> : <Results results={results} />}
+        <Toggle theme={theme} toggleTheme={toggleTheme} />
+        <Form 
+        handleSubmit={handleSubmit} 
+        setInput={setInput} 
+        input={input} 
+        context={context} 
+        setContext={setContext}/>
+        {validInput ? null : <p>bad input dude</p>}
+        {isLoading ? <p>Loading...Ï</p> : <Results results={results} />}
         <SavedBackronyms />
       </div>
     </div>

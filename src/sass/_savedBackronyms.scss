@@ -1,0 +1,55 @@
+@use './variables' as *;
+
+.savedBackronyms{
+    border: 1px solid $darkRed;
+    // border-image: $gradient;
+    padding: 20px;
+    background-color: $black;
+    padding:2rem;
+    margin:5rem 0;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    max-height:400px;
+    overflow-y: scroll;
+}
+
+.delete{
+    display:none;
+    background-color: $black;
+    background-image: none;
+    border:none;
+    box-shadow: none;
+    &:hover,
+    &:focus {
+        background-color: $black;
+        background-image: none;
+        border:none;
+        box-shadow: none;
+    }
+}
+.savedBackronym{
+    width:100%;
+    margin:2rem 0;
+    padding:0 1rem;
+    font-size: 1rem;
+    cursor:pointer;
+    display:flex;
+    justify-content: space-between;
+    &:hover>.delete{
+        display:inline-block;
+
+    }
+    p{
+        text-transform: capitalize;
+        font-size:1.5rem;
+        &::first-letter{
+            color:$darkRed;
+        }
+        span{
+            color:$darkRed;
+        } 
+    }
+    
+}
+

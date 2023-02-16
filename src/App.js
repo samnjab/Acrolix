@@ -115,6 +115,7 @@ function App() {
           <Route path='/' element={
             <>
               <Form 
+                validInput={validInput}
                 handleSubmit={handleSubmit} 
                 setInput={setInput} 
                 input={input} 
@@ -139,6 +140,7 @@ function App() {
           } />
           <Route path='*' element={<Error404 />} />
         </Routes>
+
         <SavedBackronyms />
       </div>
     </div>

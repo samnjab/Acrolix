@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { auth, provider } from "../firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 
-function Login({ setIsLoggedIn }) {
+function Login({ setIsLoggedIn, setUser }) {
   const [userID, setUserID] = useState("");
-  
+
   const handleClick = () => {
     signInWithPopup(auth, provider).then((data) => {
       setUserID(data.user.email);
       //keeps user signed in on page refresh
       localStorage.setItem("email", data.user.email);
+      localStorage.setItem("user", data.user.uid);
       setIsLoggedIn(true);
+      console.log(localStorage.user)
+      setUser(localStorage.user);
     });
   };
 

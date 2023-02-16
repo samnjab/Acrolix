@@ -16,8 +16,6 @@ import Loading from './Components/Loading';
 import BadInput from './Components/BadInput';
 import Error404 from './Components/Error404';
 
-
-
 // style sheets
 import './App.scss';
 
@@ -100,7 +98,7 @@ function App() {
     <div className={`App ${theme}`}>
       <div className='wrapper'>
         <Link to="/">
-         <Header 
+        <Header 
         toggleTheme={toggleTheme}
         theme={theme}/>
         <Login setIsLoggedIn={setIsLoggedIn} />

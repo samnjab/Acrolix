@@ -32,7 +32,6 @@ const Results = ({ results }) => {
         const dbRef = ref(database);
         //push backronym to database
         const dbKey = push(dbRef, backronymToDisplay);
-
         //save key from current backronym to state
         setCurrentBackronymKey(dbKey.key);
     }
@@ -56,7 +55,7 @@ const Results = ({ results }) => {
         <section className="activeResult">
             <ul className="activeBackronym">
                 {backronymToDisplay.map((index, i) => {
-                    return <li key={`${index[0].score}${i}`}>{index[0].word}</li>
+                    return <li key={`${index[0]?.score}${i}`}>{index[0]?.word}</li>
                 })}
             </ul>
             <div className="buttons">

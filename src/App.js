@@ -5,20 +5,26 @@ import axios from 'axios';
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
 
 // Components
+import Header from './Components/Header'
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
+
 import Loading from './Components/Loading';
 import BadInput from './Components/BadInput';
 import Error404 from './Components/Error404';
+import { FaHeart, FaSun, FaMoon } from "react-icons/fa";
+import Toggle from './Components/Toggle';
+
 
 // style sheets
 import './App.scss';
 
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
   const [word, setWord] = useState('');
   const [input, setInput] = useState('');
+  const [context, setContext] = useState('')
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
@@ -33,6 +39,7 @@ function App() {
       setWord(input);
       setInput('');
       navigate('/backronym');
+      setContext('')
     } else {
       setResults([])
       setWord('');
@@ -45,28 +52,38 @@ function App() {
     setIsLoading(true);
     const inputLetterArray = [...word];
     const fetchWord = async (letter) => {
-      const wordArray = await
+      try{
+        const wordArray = await
         axios({
           url: "https://api.datamuse.com/words",
           params: {
-            ml: word,
+            ml: context,
             sp: `${letter}*`
           },
-        }).then((res) => {
-          return res.data;
-
-        }).catch(error => {
-          return [];
         })
-      return wordArray;
+        console.log(wordArray.data)
+        return wordArray.data
+      }catch(error){
+          console.log('hit error', error)
+          return [];
+      }
+        // .then((res) => {
+        //   console.log(res.data)
+        //   return res.data;
+        // }).catch(error => {
+        //   console.log('hit error', error)
+        //   return [];
+        // })
     }
     const getWordsByLetter = async () => {
       const results = await Promise.all(inputLetterArray.map(letter => {
+  
         return (fetchWord(letter));
       })
       )
       setResults(results);
       setIsLoading(false);
+      console.log(results)
     }
     getWordsByLetter();
 
@@ -89,13 +106,20 @@ function App() {
     <div className={`App ${theme}`}>
       <div className='wrapper'>
         <Link to="/">
-          <h1>Back To The Acronym</h1>
+         <Header 
+        toggleTheme={toggleTheme}
+        theme={theme}/>
         </Link>
         <button onClick={toggleTheme}><i className="fa-solid fa-circle-half-stroke"></i></button>
         <Routes>
           <Route path='/' element={
             <>
-              <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
+              <Form 
+                handleSubmit={handleSubmit} 
+                setInput={setInput} 
+                input={input} 
+                context={context} 
+                setContext={setContext}/>
               {validInput ? null : <BadInput />}
               <SavedBackronyms />
             </>
@@ -103,14 +127,19 @@ function App() {
 
           <Route path='backronym' element={
             <>
-              <Form handleSubmit={handleSubmit} setInput={setInput} input={input} />
+              <Form 
+                handleSubmit={handleSubmit} 
+                setInput={setInput} 
+                input={input} 
+                context={context} 
+                setContext={setContext}/>
               {validInput ? (isLoading ? <Loading /> : <Results results={results} />) : (<BadInput />)}
               <SavedBackronyms />
             </>
           } />
-
           <Route path='*' element={<Error404 />} />
         </Routes>
+        <SavedBackronyms />
       </div>
     </div>
   );

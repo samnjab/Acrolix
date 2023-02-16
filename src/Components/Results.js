@@ -55,7 +55,7 @@ const Results = ({ results }) => {
         <section className="activeResult">
             <ul className="activeBackronym">
                 {backronymToDisplay.map((index, i) => {
-                    return <li key={`${index[0].score}${i}`}>{index[0].word}</li>
+                    return <li key={`${index[0]?.score}${i}`}>{index[0]?.word}</li>
                 })}
             </ul>
             <div className="buttons">

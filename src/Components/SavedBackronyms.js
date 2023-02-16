@@ -2,6 +2,8 @@ import firebase from '../firebase';
 import { useEffect, useState } from 'react';
 import { getDatabase, onValue, ref, remove } from 'firebase/database';
 import Loading from './Loading';
+import {FaTrash} from 'react-icons/fa'
+
 
 const SavedBackronyms = () => {
     const [backronymDb, setBackronymDb] = useState([]);
@@ -37,20 +39,25 @@ const SavedBackronyms = () => {
     return (
         <>
         { isLoading ? <Loading /> : (
-                    <ul>
-                    {backronymDb.map((backronym) => {
-                        return (
-                            <li key={backronym.key}>
-                                {backronym.data.map((letter) => {
-                                    return(`${letter[0].word} `)
-                                })}
-                                <button onClick={() => handleTrash(backronym)}>trash</button>
-                            </li>
-                        )
-                    })}
-                </ul>
+                    <ul className='savedBackronyms'>
+             <h2>Dashboard</h2>
+            {backronymDb.map((backronym) => {
+                return (
+                    <li className='savedBackronym' key={backronym.key}>
+                        <p>
+                        {backronym.data.map((letter) => {
+                            return(<><span>{`${letter[0].word} `.slice(0, 1).toUpperCase()}</span>{`${letter[0].word} `.slice(1).toLowerCase()}</>)
+                        })}
+                        </p>
+                        <button className='delete' onClick={() => handleTrash(backronym)}><FaTrash /></button>
+                    </li>
+                )
+
+            })}
+        </ul>
         ) }
         </>
+
     )
 };
 

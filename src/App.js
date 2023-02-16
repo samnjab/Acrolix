@@ -98,8 +98,10 @@ function App() {
   return (
     <div className={`App ${theme}`}>
       <div className='wrapper'>
-        <Header toggleTheme={toggleTheme}/>
-        <Toggle theme={theme} toggleTheme={toggleTheme} />
+        <Header 
+        toggleTheme={toggleTheme}
+        theme={theme}/>
+        {/* <Toggle theme={theme} toggleTheme={toggleTheme} /> */}
         <Form 
         handleSubmit={handleSubmit} 
         setInput={setInput} 

@@ -9,12 +9,13 @@ import Header from './Components/Header'
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
+import UsersSavedBackronyms from './Components/UsersSavedBackronyms';
+import Login from './Components/Login';
 
 import Loading from './Components/Loading';
 import BadInput from './Components/BadInput';
 import Error404 from './Components/Error404';
-import { FaHeart, FaSun, FaMoon } from "react-icons/fa";
-import Toggle from './Components/Toggle';
+
 
 
 // style sheets
@@ -28,6 +29,7 @@ function App() {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
 
@@ -61,19 +63,11 @@ function App() {
             sp: `${letter}*`
           },
         })
-        console.log(wordArray.data)
         return wordArray.data
       }catch(error){
           console.log('hit error', error)
           return [];
       }
-        // .then((res) => {
-        //   console.log(res.data)
-        //   return res.data;
-        // }).catch(error => {
-        //   console.log('hit error', error)
-        //   return [];
-        // })
     }
     const getWordsByLetter = async () => {
       const results = await Promise.all(inputLetterArray.map(letter => {
@@ -109,8 +103,8 @@ function App() {
          <Header 
         toggleTheme={toggleTheme}
         theme={theme}/>
+        <Login setIsLoggedIn={setIsLoggedIn} />
         </Link>
-        <button onClick={toggleTheme}><i className="fa-solid fa-circle-half-stroke"></i></button>
         <Routes>
           <Route path='/' element={
             <>
@@ -122,7 +116,7 @@ function App() {
                 context={context} 
                 setContext={setContext}/>
               {validInput ? null : <BadInput />}
-              <SavedBackronyms />
+              {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />}
             </>
           } />
 
@@ -135,13 +129,11 @@ function App() {
                 context={context} 
                 setContext={setContext}/>
               {validInput ? (isLoading ? <Loading /> : <Results results={results} />) : (<BadInput />)}
-              <SavedBackronyms />
+              {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />}
             </>
           } />
           <Route path='*' element={<Error404 />} />
         </Routes>
-
-        <SavedBackronyms />
       </div>
     </div>
   );

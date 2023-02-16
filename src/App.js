@@ -66,7 +66,7 @@ function App() {
       })
       )
       setResults(results);
-      // setIsLoading(false);
+      setIsLoading(false);
     }
     getWordsByLetter();
 

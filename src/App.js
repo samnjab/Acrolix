@@ -1,4 +1,3 @@
-
 // Modules
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -16,6 +15,8 @@ import Loading from './Components/Loading';
 import BadInput from './Components/BadInput';
 import Error404 from './Components/Error404';
 
+
+
 // style sheets
 import './App.scss';
 
@@ -28,6 +29,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState('');
 
   const navigate = useNavigate();
 
@@ -55,7 +57,7 @@ function App() {
       try{
         const wordArray = await
         axios({
-          url: "https://api.datamuse.com/words",
+          url: 'https://api.datamuse.com/words',
           params: {
             ml: context,
             sp: `${letter}*`
@@ -98,10 +100,13 @@ function App() {
     <div className={`App ${theme}`}>
       <div className='wrapper'>
         <Link to="/">
-        <Header 
+         <Header 
         toggleTheme={toggleTheme}
         theme={theme}/>
-        <Login setIsLoggedIn={setIsLoggedIn} />
+        <Login
+        setIsLoggedIn={setIsLoggedIn}
+        setUser={setUser}
+        />
         </Link>
         <Routes>
           <Route path='/' element={
@@ -126,7 +131,7 @@ function App() {
                 input={input} 
                 context={context} 
                 setContext={setContext}/>
-              {validInput ? (isLoading ? <Loading /> : <Results results={results} />) : (<BadInput />)}
+              {validInput ? (isLoading ? <Loading /> : <Results results={results} user={user} />) : (<BadInput />)}
               {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />}
             </>
           } />

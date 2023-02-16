@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // Components
+import Header from './Components/Header'
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
@@ -97,7 +98,7 @@ function App() {
   return (
     <div className={`App ${theme}`}>
       <div className='wrapper'>
-        <h1>Backronyms</h1>
+        <Header toggleTheme={toggleTheme}/>
         <Toggle theme={theme} toggleTheme={toggleTheme} />
         <Form 
         handleSubmit={handleSubmit} 

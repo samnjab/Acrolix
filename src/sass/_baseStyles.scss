@@ -39,7 +39,7 @@ button {
     box-shadow: 0 1px 1px $darkRed;
     transform: skewY(-0.7deg);
      &:hover,
-    &:focus {
+     &:focus {
         background-color: $darkRed;
         background-image: linear-gradient($darkRed, $darkRed);
         border-color: $darkRed;

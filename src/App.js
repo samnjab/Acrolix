@@ -13,9 +13,6 @@ import SavedBackronyms from './Components/SavedBackronyms';
 import Loading from './Components/Loading';
 import BadInput from './Components/BadInput';
 import Error404 from './Components/Error404';
-import { FaHeart, FaSun, FaMoon } from "react-icons/fa";
-import Toggle from './Components/Toggle';
-
 
 // style sheets
 import './App.scss';
@@ -106,11 +103,10 @@ function App() {
     <div className={`App ${theme}`}>
       <div className='wrapper'>
         <Link to="/">
-         <Header 
+        <Header 
         toggleTheme={toggleTheme}
         theme={theme}/>
         </Link>
-        <button onClick={toggleTheme}><i className="fa-solid fa-circle-half-stroke"></i></button>
         <Routes>
           <Route path='/' element={
             <>
@@ -140,8 +136,6 @@ function App() {
           } />
           <Route path='*' element={<Error404 />} />
         </Routes>
-
-        <SavedBackronyms />
       </div>
     </div>
   );

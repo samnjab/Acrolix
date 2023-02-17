@@ -41,7 +41,7 @@ const SavedBackronyms = () => {
             <h2>Dashboard</h2>
         { isLoading ? <Loading /> : (
              <ul className='savedBackronyms'>
-                {backronymDb.map((backronym) => {
+                {/* {backronymDb.map((backronym) => {
                     return (
                         <li className='savedBackronym' key={backronym.key}>
                             <p>
@@ -52,7 +52,7 @@ const SavedBackronyms = () => {
                             <button className='delete' onClick={() => handleTrash(backronym)}><FaTrash /></button>
                         </li>
                     )
-                })}
+                })} */}
             </ul>
         ) }
         </>

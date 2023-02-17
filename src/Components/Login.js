@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { auth, provider } from "../firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
-
-function Login({ setIsLoggedIn, setUser }) {
+import { getDatabase, ref, set, onValue } from "firebase/database";
+function Login({ isLoggedIn, setIsLoggedIn, setUserKey, userKey}) {
   const [userID, setUserID] = useState("");
-
   const handleClick = () => {
     signInWithPopup(auth, provider).then((data) => {
-      setUserID(data.user.email);
       //keeps user signed in on page refresh
       localStorage.setItem("email", data.user.email);
-      localStorage.setItem("user", data.user.uid);
-      setIsLoggedIn(true);
-      console.log(localStorage.user)
-      setUser(localStorage.user);
+      // localStorage.setItem("user", data.user.uid);
+      function writeUserData(userID) {
+        const db = getDatabase();
+        const dbKey = set(ref(db, 'users/' + userID), {
+          userId: userID
+        });
+        setIsLoggedIn(true);
+        setUserID(dbKey.key)
+        setUserKey(userID)
+      }
+      writeUserData(data.user.uid);
     });
   };
-
-  useEffect(() => {
-    setUserID(localStorage.getItem("email"));
-  }, []);
-
   const logout = () => {
     signOut(auth);
     localStorage.clear();
     window.location.reload();
     setIsLoggedIn(false);
+    console.log(userID)
+    setUserID('')
   };
-
   return (
     <div className="signIn">
-      {userID ? (
+      {isLoggedIn ? (
         <button onClick={logout}>Log Out</button>
       ) : (
         <button onClick={handleClick}>Sign In With Google</button>
@@ -38,5 +39,4 @@ function Login({ setIsLoggedIn, setUser }) {
     </div>
   );
 }
-
 export default Login;

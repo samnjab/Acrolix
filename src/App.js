@@ -119,7 +119,7 @@ function App() {
                 context={context} 
                 setContext={setContext}/>
               {validInput ? null : <BadInput />}
-              {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />}
+            {/*   {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />} */}
             </>
           } />
 
@@ -132,7 +132,7 @@ function App() {
                 context={context} 
                 setContext={setContext}/>
               {validInput ? (isLoading ? <Loading /> : <Results results={results} user={user} />) : (<BadInput />)}
-              {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />}
+             {/*  {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />} */}
             </>
           } />
           <Route path='*' element={<Error404 />} />

@@ -139,7 +139,6 @@ function App() {
           } />
           <Route path='*' element={<Error404 />} />
         </Routes>
-        <SavedBackronyms />
       </div>
     </div>
   );

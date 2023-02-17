@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { auth, provider } from "../firebase";
+
 import { signInWithPopup, signOut } from "firebase/auth";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+
 function Login({ isLoggedIn, setIsLoggedIn, setUserKey, userKey}) {
   const [userID, setUserID] = useState("");
   const handleClick = () => {
@@ -21,6 +23,7 @@ function Login({ isLoggedIn, setIsLoggedIn, setUserKey, userKey}) {
       writeUserData(data.user.uid);
     });
   };
+
   const logout = () => {
     signOut(auth);
     localStorage.clear();
@@ -29,6 +32,7 @@ function Login({ isLoggedIn, setIsLoggedIn, setUserKey, userKey}) {
     console.log(userID)
     setUserID('')
   };
+  
   return (
     <div className="signIn">
       {isLoggedIn ? (

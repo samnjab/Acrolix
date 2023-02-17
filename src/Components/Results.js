@@ -2,13 +2,14 @@ import firebase from '../firebase';
 import { useEffect, useState } from 'react';
 import { getDatabase, ref, push, remove } from 'firebase/database';
 
-const Results = ({ results }) => {
+const Results = ({ results, user }) => {
     const [liked, setLiked] = useState(false);
     const [backronymToDisplay, setBackronymToDisplay] = useState([]);
     const [randomize, setRandomize] = useState(false);
     const [currentBackronymKey, setCurrentBackronymKey] = useState("");
 
-
+    console.log(user)
+    
     useEffect(() => {
         const backronymResult = results.map((letterArr) => {
             const backronymArray = [];

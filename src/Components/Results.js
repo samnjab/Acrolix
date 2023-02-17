@@ -1,15 +1,20 @@
 import firebase from '../firebase';
 import { useEffect, useState } from 'react';
-import { getDatabase, ref, push, remove } from 'firebase/database';
-
-const Results = ({ results, user }) => {
+import { getDatabase, ref, push, remove, set } from 'firebase/database';
+const Results = ({ results, anonKey, userKey }) => {
     const [liked, setLiked] = useState(false);
     const [backronymToDisplay, setBackronymToDisplay] = useState([]);
     const [randomize, setRandomize] = useState(false);
     const [currentBackronymKey, setCurrentBackronymKey] = useState("");
-
-    console.log(user)
+    const [activeKey, setActiveKey] = useState(anonKey)
+    const [endpoint, setEndpoint] = useState('anon/') 
     
+    useEffect(()=>{
+        if (userKey){
+            setActiveKey(userKey)
+            setEndpoint('users/')
+        }
+    },[])
     useEffect(() => {
         const backronymResult = results.map((letterArr) => {
             const backronymArray = [];
@@ -26,32 +31,29 @@ const Results = ({ results, user }) => {
         const randomNumber = Math.floor(Math.random() * array.length);
         return array[randomNumber];
     }
-
-    const handleLike = () => {
+    const handleLike = () => { 
         setLiked(true);
-        const database = getDatabase(firebase);
-        const dbRef = ref(database);
+        const database = getDatabase(firebase)
         //push backronym to database
-        const dbKey = push(dbRef, backronymToDisplay);
         //save key from current backronym to state
-        setCurrentBackronymKey(dbKey.key);
+        const dbBackronym = push(ref(database, endpoint + activeKey), backronymToDisplay)
+        //setCurrentBackronymKey(dbKey.key);
+        setCurrentBackronymKey(dbBackronym.key);
     }
-
+      
     const handleUnlike = () => {
         setLiked(false);
         // create a variable that holds our database details
         const database = getDatabase(firebase);
         // create a variable that makes a reference to the current liked backronym
-        const dbRef = ref(database, `/${currentBackronymKey}`);
+        const dbRef = ref(database, endpoint + activeKey +`/${currentBackronymKey}`);
         //remove it from the database
         remove(dbRef);
         setCurrentBackronymKey("");
     }
-
     const handleRandom = () => {
         setRandomize(!randomize);
     };
-
     return (
         <section className="activeResult">
             <ul className="activeBackronym">
@@ -70,5 +72,4 @@ const Results = ({ results, user }) => {
         </section>
     );
 }
-
 export default Results;

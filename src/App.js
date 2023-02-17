@@ -2,8 +2,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
+import { getDatabase, ref, push, remove, set } from 'firebase/database';
 
 // Components
+import firebase from './firebase';
 import Header from './Components/Header'
 import Form from './Components/Form';
 import Results from './Components/Results';
@@ -14,8 +16,6 @@ import Login from './Components/Login';
 import Loading from './Components/Loading';
 import BadInput from './Components/BadInput';
 import Error404 from './Components/Error404';
-
-
 
 // style sheets
 import './App.scss';
@@ -29,7 +29,21 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState('');
+  // const [dbRef, setDbRef] = useState({})
+  const [anonKey, setAnonKey] = useState('');
+  const [userKey, setUserKey] = useState('');
+
+  useEffect(() => {
+    const database = getDatabase(firebase); 
+    const dbref = ref(database)
+    console.log(dbref)
+    const key = push(ref(database, 'anon/'), {userId:'anon'})
+    setAnonKey(key.key)
+  },[])
+  useEffect(()=>{
+    console.log(userKey)
+
+  },[userKey])
 
   const navigate = useNavigate();
 
@@ -105,7 +119,9 @@ function App() {
         theme={theme}/>
         <Login
         setIsLoggedIn={setIsLoggedIn}
-        setUser={setUser}
+        isLoggedIn={isLoggedIn}
+        setUserKey={setUserKey}
+        userKey={userKey}
         />
         </Link>
         <Routes>
@@ -119,7 +135,7 @@ function App() {
                 context={context} 
                 setContext={setContext}/>
               {validInput ? null : <BadInput />}
-            {/*   {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />} */}
+              {/* {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />} */}
             </>
           } />
 
@@ -131,8 +147,8 @@ function App() {
                 input={input} 
                 context={context} 
                 setContext={setContext}/>
-              {validInput ? (isLoading ? <Loading /> : <Results results={results} user={user} />) : (<BadInput />)}
-             {/*  {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />} */}
+              {validInput ? (isLoading ? <Loading /> : <Results results={results} anonKey={anonKey} userKey={userKey}/>) : (<BadInput />)}
+              {/* {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />} */}
             </>
           } />
           <Route path='*' element={<Error404 />} />

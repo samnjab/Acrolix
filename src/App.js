@@ -1,4 +1,3 @@
-
 // Modules
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -9,10 +8,14 @@ import Header from './Components/Header'
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
+import UsersSavedBackronyms from './Components/UsersSavedBackronyms';
+import Login from './Components/Login';
 
 import Loading from './Components/Loading';
 import BadInput from './Components/BadInput';
 import Error404 from './Components/Error404';
+
+
 
 // style sheets
 import './App.scss';
@@ -25,6 +28,8 @@ function App() {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState('');
 
   const navigate = useNavigate();
 
@@ -52,25 +57,17 @@ function App() {
       try{
         const wordArray = await
         axios({
-          url: "https://api.datamuse.com/words",
+          url: 'https://api.datamuse.com/words',
           params: {
             ml: context,
             sp: `${letter}*`
           },
         })
-        console.log(wordArray.data)
         return wordArray.data
       }catch(error){
           console.log('hit error', error)
           return [];
       }
-        // .then((res) => {
-        //   console.log(res.data)
-        //   return res.data;
-        // }).catch(error => {
-        //   console.log('hit error', error)
-        //   return [];
-        // })
     }
     const getWordsByLetter = async () => {
       const results = await Promise.all(inputLetterArray.map(letter => {
@@ -103,9 +100,13 @@ function App() {
     <div className={`App ${theme}`}>
       <div className='wrapper'>
         <Link to="/">
-        <Header 
+         <Header 
         toggleTheme={toggleTheme}
         theme={theme}/>
+        <Login
+        setIsLoggedIn={setIsLoggedIn}
+        setUser={setUser}
+        />
         </Link>
         <Routes>
           <Route path='/' element={
@@ -118,7 +119,7 @@ function App() {
                 context={context} 
                 setContext={setContext}/>
               {validInput ? null : <BadInput />}
-              <SavedBackronyms />
+              {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />}
             </>
           } />
 
@@ -130,8 +131,8 @@ function App() {
                 input={input} 
                 context={context} 
                 setContext={setContext}/>
-              {validInput ? (isLoading ? <Loading /> : <Results results={results} />) : (<BadInput />)}
-              <SavedBackronyms />
+              {validInput ? (isLoading ? <Loading /> : <Results results={results} user={user} />) : (<BadInput />)}
+              {isLoggedIn ? <UsersSavedBackronyms /> : <SavedBackronyms />}
             </>
           } />
           <Route path='*' element={<Error404 />} />

@@ -64,33 +64,32 @@ const SavedBackronyms = ({activeKey, endpoint}) => {
         setBackronymDb([...backronymDb.slice(0, i), {key:backronym.key, data:backronym.data, editOn:!(backronym.editOn)}, ...backronymDb.slice(i + 1, backronymDb.length)])
         setNewBackronymDb([...backronymDb])
     }
+    
     const handleRefresh = (backronym, i) => {
-        // const database = getDatabase(firebase)
-        // const dbRef = ref(database, endpoint + activeKey +`/${backronym.key}`)
         const inputLetterArray = backronym.data.map(wordObj => {
             return wordObj.wordData.word.slice(0, 1)
         })
-        console.log(inputLetterArray)
         const getWordsByLetter = async () => {
             const results = await Promise.all(inputLetterArray.map(letter => {
                 return (fetchWord(letter));
             })
             )
-            console.log('results are', results)
-            const newBackromym = results.map((wordArray, i) => {
+            const newBackromymData = results.map((wordArray, i) => {
                 if (backronym.data[i].locked) return backronym.data[i]
-                return {key: backronym.key, data:randomItem(wordArray), editOn:backronym.editOn}
+                return {wordData:randomItem(wordArray), locked:false}
+                // {key: backronym.key, data:{wordData:randomItem(wordArray), locked:false}, editOn:backronym.editOn}
             })
-            console.log('new backronym', newBackromym)
-            setNewBackronymDb([...newBackronymDb.slice(0, i), newBackromym, ...newBackronymDb.slice(i + 1, backronymDb.length)])
+            setNewBackronymDb([...newBackronymDb.slice(0, i), {key:backronym.key, data:newBackromymData, editOn:backronym.editOn}, ...newBackronymDb.slice(i + 1, newBackronymDb.length)])
+            
         }
         getWordsByLetter();        
 
     }
-    const handleSave = () => {
-
+    const handleSave = (backronym) => {
+        const database = getDatabase(firebase)
+        set(ref(database, endpoint + activeKey + backronym.key), backronym)
     }
-
+    
     return (
         <>
             <h2>Collection</h2>
@@ -101,35 +100,37 @@ const SavedBackronyms = ({activeKey, endpoint}) => {
                  <p className='addHeader' >+ Add to Collection </p> 
                  :
                  <>
-                 {console.log('backronymDb is',backronymDb)}
                     {backronymDb.map((backronym, i) => {
                         return (
                             <li className='savedBackronym' key={backronym.key}>
-                                <p>
-                                {backronym.editOn ? 
-                                newBackronymDb[i].data.map((letter, i) => {
-                                    return(<><span key={`${i}${backronym.key}`}>{`${letter.wordData.word} `.slice(0, 1).toUpperCase()}</span>{`${letter.wordData.word} `.slice(1).toLowerCase()}</>)
-                                })
-                                :
-                                backronym.data.map((letter, i) => {
-                                    return(<><span key={`${i}${backronym.key}`}>{`${letter.wordData.word} `.slice(0, 1).toUpperCase()}</span>{`${letter.wordData.word} `.slice(1).toLowerCase()}</>)
-                                })}
-                                </p>
-                                <button className= 'edit' onClick={()=> handleEdit(backronym, i)}><FaPen /></button>
+                               
                                 {backronym.editOn ? 
                                 <>
+                                    <p>
+                                        {newBackronymDb[i].data.map((wordObj, j) => {
+                                            return(<><span key={`${j}${backronym.key}`}>{`${wordObj.wordData.word} `.slice(0, 1).toUpperCase()}</span>{`${wordObj.wordData.word} `.slice(1).toLowerCase()}</>)
+                                        })}  
+                                    </p>
                                     <button className='refresh' onClick={()=> handleRefresh(backronym, i)}><i className="fa-solid fa-arrows-rotate"></i></button> 
-                                    <button className='save'><i className="fa-solid fa-cloud-arrow-up"></i></button>
-                                    <button className='cancel'><i className="fa-solid fa-xmark"></i></button>
+                                    <button className='save' onClick={()=> handleSave(newBackronymDb[i])}><i className="fa-solid fa-cloud-arrow-up"></i></button>
+                                    <button className='cancel' onClick={()=> handleEdit(backronym, i)}><i className="fa-solid fa-xmark"></i></button>
                                 </>
                                 :
-                                <button className='delete' onClick={() => handleTrash(backronym)}><FaTrash /></button>
+                                <>
+                                    <p>
+                                        {backronym.data.map((letter, j) => {
+                                            return(<><span key={`${j}${backronym.key}`}>{`${letter.wordData.word} `.slice(0, 1).toUpperCase()}</span>{`${letter.wordData.word} `.slice(1).toLowerCase()}</>)
+                                        })}   
+                                    </p>
+                                    <button className='delete' onClick={() => handleTrash(backronym)}><FaTrash /></button>
+                                    <button className= 'edit' onClick={()=> handleEdit(backronym, i)}><FaPen /></button>   
+                                </>
                                 }
-                                
+                              
                             </li>
                         )
                     })}
-                    <button className='clear' onClick={clearData} >Clear</button>
+                    <button className='clear' onClick={clearData} >Clear All</button>
                  </>
                  
                  }

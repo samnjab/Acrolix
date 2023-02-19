@@ -1,12 +1,21 @@
+import { Link } from "react-router-dom";
 import HeaderImg from '../assets/header-image.png'
-import Toggle from './Toggle';
+import Form from './Form';
 
-const Header = (props) => {
+const Header = ({ handleSubmit, setInput, input, context, setContext, validInput }) => {
     return (
         <header>
-            <h1 className='sr-only'>Back to the Acronym</h1>
-            <img src={HeaderImg} alt="Back to the Acronym" />
-            <Toggle theme={props.theme} toggleTheme={props.toggleTheme} />
+            <Link to='/'>
+                <h1 className='sr-only'>Back to the Acronym</h1>
+                <img src={HeaderImg} alt="Back to the Acronym" />
+            </Link>
+            <Form
+                validInput={validInput}
+                handleSubmit={handleSubmit}
+                setInput={setInput}
+                input={input}
+                context={context}
+                setContext={setContext} />
         </header>
     )
 }

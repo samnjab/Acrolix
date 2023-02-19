@@ -17,7 +17,8 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 20px auto;
+    margin: 0 auto;
+    margin-bottom: 75px;
     border: 8px solid;
     border-image: $gradient;
     padding: 20px;
@@ -40,29 +41,13 @@ img {
 button {
     //font
     color: white;
-    font-size: 1.7rem;
-    text-shadow:
-    /*inner*/ 0 0 1px $black,
-    /*top*/   0 -1px 1px #aaa,
-    /*right*/ 1px 0 1px #aaa,
-    /*bottom*/ 0 1px 0 #666,
-    /*left*/ -1px 0 1px #aaa;
-    //button
-    margin: 3px;
-    border: 1px solid #d15249;
-    border-bottom-color: $darkRed;
     background-color: $red;
-    background-image: linear-gradient($red, $darkRed);
-    box-shadow: 0 1px 1px $darkRed;
-    transform: skewY(-0.7deg);
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 1.7rem;
     transition: 0.2s;
-    i { padding: 9px 20px 4px 25px; }
     &:hover,
-    &:focus {
-        background-color: $darkRed;
-        background-image: linear-gradient($darkRed, $darkRed);
-        border-color: $darkRed;
-    }
+    &:focus { background-color: $darkRed; }
 }
-
-.buttons:last-child { transform: skewY(-0.1deg); }

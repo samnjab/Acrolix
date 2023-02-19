@@ -1,17 +1,15 @@
 // Modules
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route, useNavigate, Link } from "react-router-dom";
-import { getDatabase, ref, push, remove, set } from 'firebase/database';
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 // Components
-import firebase from './firebase';
 import Header from './Components/Header'
-import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
 import Login from './Components/Login';
-
+import Toggle from './Components/Toggle';
+import Footer from './Components/Footer';
 import Loading from './Components/Loading';
 import BadInput from './Components/BadInput';
 import Error404 from './Components/Error404';
@@ -30,43 +28,43 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [anonKey, setAnonKey] = useState('');
   const [userKey, setUserKey] = useState('');
-  const [activeKey, setActiveKey] = useState('')
-  const [endpoint, setEndpoint] = useState('anon/') 
+  const [activeKey, setActiveKey] = useState('');
+  const [endpoint, setEndpoint] = useState('anon/');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (anonKey) return
-    fetchIP().then((ipAddress)=>{
+    fetchIP().then((ipAddress) => {
       setAnonKey(ipAddress.replace(/\./g, '-'))
     })
     // const key = push(ref(database, 'anon/'), {userId:'anon'})
-  },[])
+  }, [])
 
-  const fetchIP = async() => {
-    try{
-      const IP = await 
-      axios({
-        url: 'https://ipgeolocation.abstractapi.com/v1/', 
-        params:{
-          api_key:'1909a1d9e914477a92421d504396ec21'
-        }
-      })
+  const fetchIP = async () => {
+    try {
+      const IP = await
+        axios({
+          url: 'https://ipgeolocation.abstractapi.com/v1/',
+          params: {
+            api_key: '1909a1d9e914477a92421d504396ec21'
+          }
+        })
       return IP.data.ip_address
-    }catch(error){
+    } catch (error) {
       return ''
     }
   }
 
-  useEffect(()=>{
-    if (userKey){
-        setActiveKey(userKey)
-        setEndpoint('users/')
-    }else{
+  useEffect(() => {
+    if (userKey) {
+      setActiveKey(userKey)
+      setEndpoint('users/')
+    } else {
       setActiveKey(anonKey)
       setEndpoint('anon/')
     }
-  },[userKey, anonKey])
-
-  const navigate = useNavigate();
+  }, [userKey, anonKey])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,23 +87,23 @@ function App() {
     setIsLoading(true);
     const inputLetterArray = [...word];
     const fetchWord = async (letter) => {
-      try{
+      try {
         const wordArray = await
-        axios({
-          url: 'https://api.datamuse.com/words',
-          params: {
-            ml: context,
-            sp: `${letter}*`
-          },
-        })
+          axios({
+            url: 'https://api.datamuse.com/words',
+            params: {
+              ml: context,
+              sp: `${letter}*`
+            },
+          })
         return wordArray.data
-      }catch(error){
-          return [];
+      } catch (error) {
+        return [];
       }
     }
     const getWordsByLetter = async () => {
       const results = await Promise.all(inputLetterArray.map(letter => {
-  
+
         return (fetchWord(letter));
       })
       )
@@ -132,46 +130,41 @@ function App() {
   return (
     <div className={`App ${theme}`}>
       <div className='wrapper'>
-        <Link to="/">
-         <Header 
-        toggleTheme={toggleTheme}
-        theme={theme}/>
-        <Login
-        setIsLoggedIn={setIsLoggedIn}
-        isLoggedIn={isLoggedIn}
-        setUserKey={setUserKey}
-        userKey={userKey}
+        <div className='userSettings'>
+          <Login
+            setIsLoggedIn={setIsLoggedIn}
+            isLoggedIn={isLoggedIn}
+            setUserKey={setUserKey}
+            userKey={userKey}
+          />
+          <Toggle theme={theme} toggleTheme={toggleTheme} />
+        </div>
+        <Header
+          toggleTheme={toggleTheme}
+          theme={theme}
+          validInput={validInput}
+          handleSubmit={handleSubmit}
+          setInput={setInput}
+          input={input}
+          context={context}
+          setContext={setContext}
         />
-        </Link>
         <Routes>
-          <Route path='/' element= {
+          <Route path='/' element={
             <>
-              <Form 
-                validInput={validInput}
-                handleSubmit={handleSubmit} 
-                setInput={setInput} 
-                input={input} 
-                context={context} 
-                setContext={setContext}/>
-              {validInput ? null : <BadInput />}
-              <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} /> 
-            </>
-          } />
-
-          <Route path='backronym' element= {
+              {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
+              <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
+            </>}
+          />
+          <Route path='backronym' element={
             <>
-              <Form 
-                handleSubmit={handleSubmit} 
-                setInput={setInput} 
-                input={input} 
-                context={context} 
-                setContext={setContext}/>
-              {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint}/>) : (<BadInput />)}
-              <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} /> 
-            </>
-          } />
+              {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
+              <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
+            </>}
+          />
           <Route path='*' element={<Error404 />} />
         </Routes>
+        <Footer />
       </div>
     </div>
   );

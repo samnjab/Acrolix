@@ -26,7 +26,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [anonKey, setAnonKey] = useState('');
+  const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
   const [userKey, setUserKey] = useState('');
   const [activeKey, setActiveKey] = useState('');
   const [endpoint, setEndpoint] = useState('anon/');
@@ -34,33 +34,30 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('anon key is', anonKey)
     if (anonKey) return
-    fetchIP().then((ipAddress) => {
-      setAnonKey(ipAddress.replace(/\./g, '-'))
-    })
-    // const key = push(ref(database, 'anon/'), {userId:'anon'})
-  }, [])
-
-  const fetchIP = async () => {
-    try {
-      const IP = await
-        axios({
-          url: 'https://ipgeolocation.abstractapi.com/v1/',
-          params: {
-            api_key: '1909a1d9e914477a92421d504396ec21'
-          }
-        })
-      return IP.data.ip_address
-    } catch (error) {
-      return ''
+    else{
+      const newAnonKey = makeAnonKey(24)
+      localStorage.setItem('anonKey', newAnonKey)
+      console.log('set local storage to', newAnonKey)
+      setAnonKey(localStorage.getItem('anonKey'))
     }
-  }
-
-  useEffect(() => {
-    if (userKey) {
-      setActiveKey(userKey)
-      setEndpoint('users/')
-    } else {
+   
+  },[])
+  const makeAnonKey = (length) => {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i ++){
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+  useEffect(()=>{
+    if (userKey){
+        setActiveKey(userKey)
+        setEndpoint('users/')
+    }else {
       setActiveKey(anonKey)
       setEndpoint('anon/')
     }

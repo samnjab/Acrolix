@@ -16,6 +16,7 @@ function Login({ isLoggedIn, setIsLoggedIn, setUserKey, userKey}) {
         const dbKey = push(ref(db, 'users/' + userID), null);
         setIsLoggedIn(true);
         setUserID(dbKey.key)
+        // localStorage.setItem('userKey', userID)
         setUserKey(userID)
       }
       writeUserData(data.user.uid);

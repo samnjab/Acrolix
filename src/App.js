@@ -34,37 +34,25 @@ function App() {
   const [endpoint, setEndpoint] = useState('anon/') 
 
   useEffect(() => {
-    console.log('inside useeffect')
-    console.log(anonKey)
+    console.log('anon key is', anonKey)
     if (anonKey) return
     else{
-      const newAnonKey = Math.floor(Math.random() * 1000000);
-      console.log('newAnonKey generated is', newAnonKey)
+      const newAnonKey = makeAnonKey(24)
       localStorage.setItem('anonKey', newAnonKey)
-      console.log('localstorage anon key is', localStorage.getItem('anonKey'))
+      console.log('set local storage to', newAnonKey)
       setAnonKey(localStorage.getItem('anonKey'))
     }
-    // fetchIP().then((ipAddress)=>{
-    //   setAnonKey(ipAddress.replace(/\./g, '-'))
-    // })
-    // const key = push(ref(database, 'anon/'), {userId:'anon'})
+   
   },[])
-
-  const fetchIP = async() => {
-    try{
-      const IP = await 
-      axios({
-        url: 'https://ipgeolocation.abstractapi.com/v1/', 
-        params:{
-          api_key:'1909a1d9e914477a92421d504396ec21'
-        }
-      })
-      return IP.data.ip_address
-    }catch(error){
-      return ''
+  const makeAnonKey = (length) => {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i ++){
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-  }
-
+    return result;
+}
   useEffect(()=>{
     if (userKey){
         setActiveKey(userKey)
@@ -163,6 +151,7 @@ function App() {
                 context={context} 
                 setContext={setContext}/>
               {validInput ? null : <BadInput />}
+              <button onClick={()=> localStorage.clear()}>Clear Cache</button>
               <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} /> 
             </>
           } />

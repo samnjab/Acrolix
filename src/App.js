@@ -28,16 +28,25 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [anonKey, setAnonKey] = useState('');
+  const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
   const [userKey, setUserKey] = useState('');
   const [activeKey, setActiveKey] = useState('')
   const [endpoint, setEndpoint] = useState('anon/') 
 
   useEffect(() => {
+    console.log('inside useeffect')
+    console.log(anonKey)
     if (anonKey) return
-    fetchIP().then((ipAddress)=>{
-      setAnonKey(ipAddress.replace(/\./g, '-'))
-    })
+    else{
+      const newAnonKey = Math.floor(Math.random() * 1000000);
+      console.log('newAnonKey generated is', newAnonKey)
+      localStorage.setItem('anonKey', newAnonKey)
+      console.log('localstorage anon key is', localStorage.getItem('anonKey'))
+      setAnonKey(localStorage.getItem('anonKey'))
+    }
+    // fetchIP().then((ipAddress)=>{
+    //   setAnonKey(ipAddress.replace(/\./g, '-'))
+    // })
     // const key = push(ref(database, 'anon/'), {userId:'anon'})
   },[])
 

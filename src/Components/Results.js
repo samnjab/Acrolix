@@ -1,7 +1,7 @@
 import firebase from '../firebase';
 import { useEffect, useState } from 'react';
 import { getDatabase, ref, push, remove } from 'firebase/database';
-import { FaLock, FaLockOpen, FaUnlock } from 'react-icons/fa'
+import { FaLock, FaUnlock } from 'react-icons/fa'
 const Results = ({ results, activeKey, endpoint}) => {
     const [liked, setLiked] = useState(false);
     const [backronymToDisplay, setBackronymToDisplay] = useState([]);
@@ -68,7 +68,7 @@ const Results = ({ results, activeKey, endpoint}) => {
                         return <li key={`${wordObj.wordData?.score}${i}`}>
                             {wordObj.wordData?.word}
                             {wordObj.locked ? 
-                            <FaLock className='lock' onClick={() => handleUnlock(i)}/> 
+                            <FaLock className='lock locked' onClick={() => handleUnlock(i)}/> 
                             : 
                             <FaUnlock className='lock' onClick={() => handleLock(i)}/>}
                             </li>

@@ -35,7 +35,6 @@ function App() {
 
   useEffect(() => {
     if (anonKey) return
-    const database = getDatabase(firebase); 
     fetchIP().then((ipAddress)=>{
       setAnonKey(ipAddress.replace(/\./g, '-'))
     })

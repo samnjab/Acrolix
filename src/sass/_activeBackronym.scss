@@ -1,7 +1,5 @@
 @use "_variables.scss" as *;
-
 .activeResult { width: 75%; }
-
 .activeBackronym {
     display: flex;
     flex-wrap: wrap;
@@ -56,5 +54,7 @@
         border: none;
         box-shadow: none;
     }
-    
+}
+.lock.locked{
+    display:inline-block;
 }

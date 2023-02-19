@@ -37,7 +37,6 @@ function App() {
     if (anonKey) return
     const database = getDatabase(firebase); 
     fetchIP().then((ipAddress)=>{
-      console.log('result is', ipAddress.replace(/\./g, '-'))
       setAnonKey(ipAddress.replace(/\./g, '-'))
     })
     // const key = push(ref(database, 'anon/'), {userId:'anon'})
@@ -52,22 +51,17 @@ function App() {
           api_key:'1909a1d9e914477a92421d504396ec21'
         }
       })
-      console.log('IP is', IP.data.ip_address)
       return IP.data.ip_address
     }catch(error){
-      console.log(error.message)
       return ''
     }
   }
 
   useEffect(()=>{
     if (userKey){
-      console.log('user key inside useEffect:', userKey)
-
         setActiveKey(userKey)
         setEndpoint('users/')
     }else{
-      console.log('anon key inside useEffect:', anonKey)
       setActiveKey(anonKey)
       setEndpoint('anon/')
     }
@@ -107,7 +101,6 @@ function App() {
         })
         return wordArray.data
       }catch(error){
-          console.log('hit error', error)
           return [];
       }
     }
@@ -119,7 +112,6 @@ function App() {
       )
       setResults(results);
       setIsLoading(false);
-      console.log(results)
     }
     getWordsByLetter();
 
@@ -163,12 +155,11 @@ function App() {
                 context={context} 
                 setContext={setContext}/>
               {validInput ? null : <BadInput />}
-              {console.log('active key in app:', activeKey, 'anonkey in app:',anonKey)}
               <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} /> 
             </>
           } />
 
-          <Route path='backronym' element={
+          <Route path='backronym' element= {
             <>
               <Form 
                 handleSubmit={handleSubmit} 

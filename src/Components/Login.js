@@ -27,7 +27,6 @@ function Login({ isLoggedIn, setIsLoggedIn, setUserKey, userKey}) {
     localStorage.clear();
     window.location.reload();
     setIsLoggedIn(false);
-    console.log(userID)
     setUserID('')
   };
   

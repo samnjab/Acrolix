@@ -29,6 +29,7 @@ const Results = ({ results, activeKey, endpoint}) => {
         //push backronym to database
         //save key from current backronym to state
         const dbBackronym = push(ref(database, endpoint + activeKey), backronymToDisplay)
+        console.log('ref is', ref(database, endpoint + activeKey))
         //setCurrentBackronymKey(dbKey.key);
         setCurrentBackronymKey(dbBackronym.key);
     }

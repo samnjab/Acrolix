@@ -10,7 +10,6 @@ import Header from './Components/Header'
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
-import UsersSavedBackronyms from './Components/UsersSavedBackronyms';
 import Login from './Components/Login';
 
 import Loading from './Components/Loading';
@@ -29,29 +28,50 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [validInput, setValidInput] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [dbRef, setDbRef] = useState({})
   const [anonKey, setAnonKey] = useState('');
   const [userKey, setUserKey] = useState('');
-  const [activeKey, setActiveKey] = useState(anonKey)
+  const [activeKey, setActiveKey] = useState('')
   const [endpoint, setEndpoint] = useState('anon/') 
 
   useEffect(() => {
+    if (anonKey) return
     const database = getDatabase(firebase); 
-    const dbref = ref(database)
-    console.log(dbref)
-    const key = push(ref(database, 'anon/'), {userId:'anon'})
-    setAnonKey(key.key)
-    setActiveKey(anonKey)
+    fetchIP().then((ipAddress)=>{
+      console.log('result is', ipAddress.replace(/\./g, '-'))
+      setAnonKey(ipAddress.replace(/\./g, '-'))
+    })
+    // const key = push(ref(database, 'anon/'), {userId:'anon'})
   },[])
+
+  const fetchIP = async() => {
+    try{
+      const IP = await 
+      axios({
+        url: 'https://ipgeolocation.abstractapi.com/v1/', 
+        params:{
+          api_key:'1909a1d9e914477a92421d504396ec21'
+        }
+      })
+      console.log('IP is', IP.data.ip_address)
+      return IP.data.ip_address
+    }catch(error){
+      console.log(error.message)
+      return ''
+    }
+  }
+
   useEffect(()=>{
     if (userKey){
+      console.log('user key inside useEffect:', userKey)
+
         setActiveKey(userKey)
         setEndpoint('users/')
     }else{
+      console.log('anon key inside useEffect:', anonKey)
       setActiveKey(anonKey)
       setEndpoint('anon/')
     }
-  },[userKey])
+  },[userKey, anonKey])
 
   const navigate = useNavigate();
 
@@ -143,7 +163,7 @@ function App() {
                 context={context} 
                 setContext={setContext}/>
               {validInput ? null : <BadInput />}
-              {console.log(activeKey)}
+              {console.log('active key in app:', activeKey, 'anonkey in app:',anonKey)}
               <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} /> 
             </>
           } />

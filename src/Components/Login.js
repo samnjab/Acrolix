@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { auth, provider } from "../firebase";
 
 import { signInWithPopup, signOut } from "firebase/auth";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue, push } from "firebase/database";
 
 function Login({ isLoggedIn, setIsLoggedIn, setUserKey, userKey}) {
   const [userID, setUserID] = useState("");
@@ -13,9 +13,7 @@ function Login({ isLoggedIn, setIsLoggedIn, setUserKey, userKey}) {
       // localStorage.setItem("user", data.user.uid);
       function writeUserData(userID) {
         const db = getDatabase();
-        const dbKey = set(ref(db, 'users/' + userID), {
-          userId: userID
-        });
+        const dbKey = push(ref(db, 'users/' + userID), null);
         setIsLoggedIn(true);
         setUserID(dbKey.key)
         setUserKey(userID)

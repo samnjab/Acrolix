@@ -87,7 +87,8 @@ const SavedBackronyms = ({activeKey, endpoint}) => {
     }
     const handleSave = (backronym) => {
         const database = getDatabase(firebase)
-        set(ref(database, endpoint + activeKey + backronym.key), backronym)
+        console.log('new backronym is', backronym.data)
+        set(ref(database, endpoint + activeKey + `/${backronym.key}`), backronym.data)
     }
     return (
         <>

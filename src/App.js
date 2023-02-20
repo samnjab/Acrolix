@@ -38,11 +38,9 @@ function App() {
     else{
       const newAnonKey = makeAnonKey(24)
       localStorage.setItem('anonKey', newAnonKey)
-      console.log('set local storage to', newAnonKey)
       setAnonKey(localStorage.getItem('anonKey'))
     }
-  
-  },[])
+  }, [anonKey]);
 
   const makeAnonKey = (length) => {
     let result = '';
@@ -109,7 +107,7 @@ function App() {
     }
     getWordsByLetter();
 
-  }, [word]);
+  }, [word, context]);
 
   // LIGHT/DARK FUNCTION
   const toggleTheme = () => {

@@ -86,7 +86,7 @@ const Results = ({ results, activeKey, endpoint}) => {
                     <button onClick={handleRandom}><i className="fa-solid fa-arrows-rotate"></i></button>
                 </div>
             </section>
-            };
+            }
         </>
     );
 };

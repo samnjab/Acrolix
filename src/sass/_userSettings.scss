@@ -4,12 +4,15 @@
     display: flex;
     justify-content: flex-end;
     padding-top: 15px;
+    position: relative;
+    z-index: 2;
 }
 
 .signIn {
     button {
         background-color: $black;
         transition: 0.2s;
+        cursor: pointer;
         &:hover,
         &:focus { 
             background-color: $darkRed; 
@@ -27,6 +30,7 @@ input[type ='checkbox']{
     position:absolute;
     top:0;
     left:0;
+    cursor: pointer;
 }
 
 .toggle{

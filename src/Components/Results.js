@@ -21,6 +21,7 @@ const Results = ({ results, activeKey, endpoint}) => {
             if (wordObj.locked) return wordObj
             else return {wordData:randomItem(results[i]), locked:false}
         }))
+        
     }, [randomize]);
 
     const randomItem = (array) => {

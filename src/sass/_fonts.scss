@@ -1,0 +1,72 @@
+@use "_variables.scss" as *;
+
+html {
+    font-family: $body-font;
+    color: $darkBodyText;
+    font-size: 62.5%;
+}
+
+h2 {
+    margin: 5px;
+    color: $red;
+    font-family: $header-font;
+    font-size: 4.5rem;
+    font-weight: 800;
+    text-align: center;
+    font-style: italic;
+    text-transform: uppercase;
+    -webkit-text-stroke-width: 0.15rem;
+    -webkit-text-stroke-color: $teal;
+    padding-right: 20px;
+    margin-right: -20px;
+    background: -webkit-linear-gradient(-45deg, $red 34%, $yellow 59%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h3 {
+    font-family: $header-font;
+    font-size: 2.5rem;
+    margin: 3rem 0;
+    text-align: center;
+    letter-spacing: 0.3rem;
+}
+
+.addHeader {
+    font-size: 1.8rem;
+}
+
+li.savedBackronym p {
+    font-family: $header-font;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    margin: 15px 7px;
+    &::first-letter {
+        color: $teal;
+        font-weight: 600;
+        font-size: 2.3rem;
+    }
+}
+
+footer {
+    padding-bottom: 25px;
+    transition: 0.2s;
+    p {
+        font-family: $header-font;
+        letter-spacing: 0.5rem;
+        color: $darkBodyText;
+        font-size: 1.5rem;
+        text-align: right;
+    }
+    a {
+        color: $darkBodyText;
+        text-decoration: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        &:hover,
+        &:focus { text-decoration: underline; }
+    }
+}
+

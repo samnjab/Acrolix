@@ -1,0 +1,65 @@
+@use "_variables.scss" as *;
+
+.activeResult { 
+    width: 75%; 
+}
+
+.activeBackronym {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 15vh;
+    li {
+        margin: 5px;
+        color: $red;
+        font-family: $header-font;
+        font-size: 5rem;
+        font-weight: 800;
+        text-align: center;
+        font-style: italic;
+        text-transform: uppercase;
+        -webkit-text-stroke-width: 0.15rem;
+        -webkit-text-stroke-color: $teal;
+        text-shadow: $teal -20px 0px 39px;
+        &::first-letter {
+            font-size: 7rem;
+            padding-right: 20px;
+            margin-right: -20px;
+            background: -webkit-linear-gradient(-45deg, $red 34%, $yellow 59%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke-color: $teal;
+            text-shadow: none;
+        }
+        &:hover>.lock,
+        &:focus>.lock {
+            display: inline-block;
+        }
+    }  
+}
+
+.lock {
+    display:none;
+    background-color: rgba(0, 0, 0, 0);
+    opacity:0.7;
+    background-image: none;
+    border:none;
+    box-shadow: none;
+    font-size:2rem;
+    margin: 0 1rem;
+    color:rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    &:hover,
+    &:focus {
+        background-color: $black;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+    }
+}
+
+.lock.locked {
+    display:inline-block;
+}

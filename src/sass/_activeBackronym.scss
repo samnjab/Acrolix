@@ -1,5 +1,9 @@
 @use "_variables.scss" as *;
-.activeResult { width: 75%; }
+
+.activeResult { 
+    width: 75%; 
+}
+
 .activeBackronym {
     display: flex;
     flex-wrap: wrap;
@@ -33,10 +37,10 @@
         &:focus>.lock {
             display: inline-block;
         }
-    }
-    
+    }  
 }
-.lock{
+
+.lock {
     display:none;
     background-color: rgba(0, 0, 0, 0);
     opacity:0.7;
@@ -55,6 +59,7 @@
         box-shadow: none;
     }
 }
-.lock.locked{
+
+.lock.locked {
     display:inline-block;
 }

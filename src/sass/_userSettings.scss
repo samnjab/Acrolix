@@ -3,7 +3,7 @@
 .userSettings {
     display: flex;
     justify-content: flex-end;
-    margin-top: 15px;
+    padding-top: 15px;
 }
 
 .signIn {
@@ -11,7 +11,9 @@
         background-color: $black;
         transition: 0.2s;
         &:hover,
-        &:focus { background-color: $darkRed; }
+        &:focus { 
+            background-color: $darkRed; 
+        }
     }
 }
 
@@ -38,7 +40,11 @@ input[type ='checkbox']{
     align-items: center;
     transition: 0.2s;
     &:hover,
-    &:focus { background-color: $darkRed; }
-    .toggleIcon{ font-size:2.5rem; }
+    &:focus { 
+        background-color: $darkRed; 
+    }
+    .toggleIcon{ 
+        font-size:2.5rem; 
+    }
 }
 

@@ -3,9 +3,9 @@ import Delorean from '../assets/Delorean.png';
 
 const Loading = () => {
     return (
-        <div className="loading">
+        <div className='loading'>
         <img src={Delorean} alt='Delorean driving back and fourth over fire' className='delorean'/>
-        <img src={Fire} className='fire' />
+        <img src={Fire} className='fire'/>
         </div>
     )
 };

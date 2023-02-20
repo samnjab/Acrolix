@@ -1,7 +1,6 @@
 @use "_variables.scss" as *;
 
 html {
-    background-color: $darkBackground;
     font-family: $body-font;
     color: $darkBodyText;
     font-size: 62.5%;
@@ -40,21 +39,16 @@ li.savedBackronym p {
     font-size: 2rem;
     text-transform: uppercase;
     letter-spacing: 0.3rem;
-}
-
-p {
-    font-size: 2rem;
-    text-align: center;
-    span{
-        font-family: $header-font;
-        color:$teal;
+    margin: 15px 7px;
+    &::first-letter {
+        color: $teal;
         font-weight: 600;
         font-size: 2.3rem;
-    } 
+    }
 }
 
 footer {
-    margin-bottom: 25px;
+    padding-bottom: 25px;
     transition: 0.2s;
     p {
         font-family: $header-font;
@@ -66,10 +60,10 @@ footer {
     a {
         color: $darkBodyText;
         text-decoration: none;
-        // font-size: 2rem;
         font-weight: 600;
         text-transform: uppercase;
         &:hover,
         &:focus { text-decoration: underline; }
     }
 }
+

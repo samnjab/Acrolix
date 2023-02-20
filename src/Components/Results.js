@@ -1,12 +1,12 @@
 import firebase from '../firebase';
 import { useEffect, useState } from 'react';
 import { getDatabase, ref, push, remove } from 'firebase/database';
-import { FaLock, FaUnlock } from 'react-icons/fa'
+
 const Results = ({ results, activeKey, endpoint}) => {
-    const [liked, setLiked] = useState(false);
     const [backronymToDisplay, setBackronymToDisplay] = useState([]);
+    const [currentBackronymKey, setCurrentBackronymKey] = useState('');
+    const [liked, setLiked] = useState(false);
     const [randomize, setRandomize] = useState(false);
-    const [currentBackronymKey, setCurrentBackronymKey] = useState("");
     
     useEffect(() => {
         const backronymResult = results.map((letterArr) => {
@@ -21,42 +21,44 @@ const Results = ({ results, activeKey, endpoint}) => {
             if (wordObj.locked) return wordObj
             else return {wordData:randomItem(results[i]), locked:false}
         }))
-    }, [randomize])
+    }, [randomize]);
 
     const randomItem = (array) => {
         setLiked(false);
         const randomNumber = Math.floor(Math.random() * array.length);
         return array[randomNumber];
-    }
+    };
+    
     const handleLike = () => { 
         setLiked(true);
         const database = getDatabase(firebase)
-        //push backronym to database
-        //save key from current backronym to state
-        const dbBackronym = push(ref(database, endpoint + activeKey), backronymToDisplay)
-        //setCurrentBackronymKey(dbKey.key);
+        const savedBackronym = backronymToDisplay.map(wordObj => {
+            return {wordData: wordObj.wordData, locked: false}
+        })
+        const dbBackronym = push(ref(database, endpoint + activeKey), savedBackronym)
         setCurrentBackronymKey(dbBackronym.key);
-    }
-      
+    };
+
     const handleUnlike = () => {
         setLiked(false);
-        // create a variable that holds our database details
         const database = getDatabase(firebase);
-        // create a variable that makes a reference to the current liked backronym
         const dbRef = ref(database, endpoint + activeKey +`/${currentBackronymKey}`);
-        //remove it from the database
         remove(dbRef);
-        setCurrentBackronymKey("");
-    }
+        setCurrentBackronymKey('');
+    };
+
     const handleRandom = () => {
         setRandomize(!randomize);
     };
+
     const handleLock = (i) => {
         setBackronymToDisplay([...backronymToDisplay.slice(0, i), {wordData: backronymToDisplay[i].wordData, locked:true }, ...backronymToDisplay.slice(i + 1, backronymToDisplay.length)])
-    }
+    };
+
     const handleUnlock = (i) => {
-         setBackronymToDisplay([...backronymToDisplay.slice(0, i), {wordData: backronymToDisplay[i].wordData, locked:false }, ...backronymToDisplay.slice(i + 1, backronymToDisplay.length)])
-    }
+        setBackronymToDisplay([...backronymToDisplay.slice(0, i), {wordData: backronymToDisplay[i].wordData, locked:false }, ...backronymToDisplay.slice(i + 1, backronymToDisplay.length)])
+    };
+    
     return (
         <>
             {backronymToDisplay.length === 0 ? 
@@ -68,9 +70,9 @@ const Results = ({ results, activeKey, endpoint}) => {
                         return <li key={`${wordObj.wordData?.score}${i}`}>
                             {wordObj.wordData?.word}
                             {wordObj.locked ? 
-                            <FaLock className='lock locked' onClick={() => handleUnlock(i)}/> 
+                            <i className='fa-solid fa-lock lock locked' onClick={() => handleUnlock(i)}></i>
                             : 
-                            <FaUnlock className='lock' onClick={() => handleLock(i)}/>}
+                            <i className='fa-solid fa-unlock lock' onClick={() => handleLock(i)}></i>}
                             </li>
                     })}
                 </ul>
@@ -82,11 +84,10 @@ const Results = ({ results, activeKey, endpoint}) => {
                     </button>
                     <button onClick={handleRandom}><i className="fa-solid fa-arrows-rotate"></i></button>
                 </div>
-            
-            
             </section>
-            }
+            };
         </>
     );
-}
+};
+
 export default Results;

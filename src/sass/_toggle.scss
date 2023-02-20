@@ -1,0 +1,12 @@
+@use './variables' as *;
+
+.light {
+    background-color: $lightBackground;
+    background-image: $lightBackgroundImage;
+}
+
+.light h3,
+.light footer p,
+.light footer a {
+    color: $black;
+}

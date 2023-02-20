@@ -1,4 +1,5 @@
 @use "_variables.scss" as *;
+
 .loading {
     position: relative;
     margin: 75px 0;
@@ -12,8 +13,9 @@
 
 .delorean {
     position: absolute;
-    bottom: -50px;
-    height: 200px;
+    bottom: 15px;
+    left: 0;
+    height: 80px;
     width: auto;
     animation-duration: 3s;
     animation-name: drive;
@@ -23,6 +25,10 @@
 }
 
 @keyframes drive{
-    from { transform: translateX(0%); }
-    to { transform: translateX(450%); }
-  }
+    from { 
+        left: 0;
+    }
+    to { 
+        left: 75%; 
+    }  
+}

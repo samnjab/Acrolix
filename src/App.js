@@ -1,7 +1,7 @@
 // Modules
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 // Components
 import Header from './Components/Header'
@@ -18,23 +18,22 @@ import Error404 from './Components/Error404';
 import './App.scss';
 
 function App() {
-  const [theme, setTheme] = useState('dark');
-  const [word, setWord] = useState('');
-  const [input, setInput] = useState('');
-  const [context, setContext] = useState('')
-  const [results, setResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [validInput, setValidInput] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
-  const [userKey, setUserKey] = useState('');
   const [activeKey, setActiveKey] = useState('');
+  const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
+  const [context, setContext] = useState('')
   const [endpoint, setEndpoint] = useState('anon/');
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [results, setResults] = useState([]);
+  const [theme, setTheme] = useState('dark');
+  const [validInput, setValidInput] = useState(true);
+  const [userKey, setUserKey] = useState('');
+  const [word, setWord] = useState('');
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('anon key is', anonKey)
     if (anonKey) return
     else{
       const newAnonKey = makeAnonKey(24)
@@ -42,8 +41,9 @@ function App() {
       console.log('set local storage to', newAnonKey)
       setAnonKey(localStorage.getItem('anonKey'))
     }
-   
+  
   },[])
+
   const makeAnonKey = (length) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -132,7 +132,6 @@ function App() {
             setIsLoggedIn={setIsLoggedIn}
             isLoggedIn={isLoggedIn}
             setUserKey={setUserKey}
-            userKey={userKey}
           />
           <Toggle theme={theme} toggleTheme={toggleTheme} />
         </div>

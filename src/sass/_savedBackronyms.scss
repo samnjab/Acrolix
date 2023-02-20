@@ -12,7 +12,6 @@ section.savedBackronyms{
 .savedBackronymList{
     display:flex;
     flex-direction: column;
-    justify-content: space-between;
     width:100%;
     margin: 15px 0;
     cursor:pointer;
@@ -22,7 +21,8 @@ section.savedBackronyms{
 
 .savedBackronym {
     display:flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     align-items: center;
     cursor:pointer;
     .buttonContainer {
@@ -39,71 +39,5 @@ section.savedBackronyms{
     &:hover .buttonContainer,
     &:focus .buttonContainer {
         opacity: 1;
-     }
+    }
 }
-
-
-// .buttonContainer {
-//     display: flex;
-//     justify-content: space-between;
-//     width: 15%;
-// }
-
-// .buttonContainer:hover,
-// .buttonContainer:focus {
-
-//     border: solid 1px hotpink;
-//     background-color: $black;
-//     background-image: none;
-//     border:none;
-//     box-shadow: none;
-// }
-
-// .delete,
-// .edit,
-// .save,
-// .cancel,
-// .refresh {
-//     background-color: transparent;
-//     opacity:0.7;
-//     background-image: none;
-//     border:none;
-//     box-shadow: none;
-//     text-shadow: none;
-//     cursor: pointer;
-//     transition: 0.2s;
-//     &:hover,
-//     &:focus {
-//         background-color: $black;
-//         background-image: none;
-//         border:none;
-//         box-shadow: none;
-//     }
-// }
-
-// .delete,
-// .edit{ display:none; }
-
-// .clear{
-//     align-self: flex-end;
-//     background-color: transparent;
-//     opacity:0.7;
-//     background-image: none;
-//     border:none;
-//     box-shadow: none;
-//     text-transform: uppercase;
-//     text-shadow: none;
-//     padding:1rem 2rem;
-//     border-radius: 15px;
-//     font-size: 1.5rem;
-//     cursor: pointer;
-//     transition: 0.2s;
-//     &:hover,
-//     &:focus {
-//         background-color: $black;
-//         background-image: none;
-//         border: 0.5px solid $darkRed;
-//         box-shadow: none;
-//     }
-// }
-

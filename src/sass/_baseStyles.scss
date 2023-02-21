@@ -53,6 +53,10 @@ button {
     padding: 5px 15px;
     font-size: 1.7rem;
     transition: 0.2s;
+    .fa-heart {
+        width: 100%;
+        height: 100%;
+    }
     &:hover,
     &:focus { 
         background-color: $darkRed; 

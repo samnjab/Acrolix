@@ -103,6 +103,10 @@
 }
 
 @media (max-width: 500px) {
+// User Settings Styles
+.infoText {
+    min-width: 90vw;
+}
 // Header Styles
     header img {
         width: 330px;

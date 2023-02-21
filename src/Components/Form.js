@@ -1,4 +1,4 @@
-const Form = ({ handleSubmit, setInput, input, context, setContext, validInput }) => {
+const Form = ({ handleSubmit, setInput, input, contextInput, setContextInput, validInput }) => {
     return (
         <form
             onSubmit={handleSubmit}>
@@ -17,8 +17,8 @@ const Form = ({ handleSubmit, setInput, input, context, setContext, validInput }
                     type='text'
                     id='context'
                     placeholder='Opt: 1-2 keywords for added context'
-                    onChange={(e) => setContext(e.target.value)}
-                    value={context}/>
+                    onChange={(e) => setContextInput(e.target.value)}
+                    value={contextInput}/>
             </div>
             <button
                 type='submit'

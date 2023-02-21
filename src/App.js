@@ -140,6 +140,14 @@ function App() {
             setUserKey={setUserKey}
           />
           <Toggle theme={theme} toggleTheme={toggleTheme} />
+          <div className='info'>
+          <button aria-label='info' className='infoIcon'><i className='fa-solid fa-info'></i></button>
+            <div className='infoText'>
+            <p>Backronym: n. acronym deliberately formed from a phrase whose initial letters spell out a particular word or words.</p>
+            <p>Generator can only be given words between 2 & 6 characters.</p>
+            <p>Letters only, please. Only real words can be used for context.</p>
+            </div>
+          </div> 
         </div>
         <Header
           toggleTheme={toggleTheme}

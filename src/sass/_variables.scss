@@ -1,14 +1,15 @@
 //colors
 $red: rgba(207, 42, 34, 1.00);
-$yellow: rgba(242, 184, 58, 1.00);
+$yellow: rgba(253, 255, 6, 1.00);
 $teal: rgba(10, 177, 239, 1.00);
 $black: rgba(0, 0, 0, 1.00);
 $gradient: repeating-linear-gradient(to bottom right, $yellow, $red, $red, $yellow) 20;
 $darkRed: rgba(150, 37, 29, 1.00);
+$darkRedTransparent: rgba(150, 37, 29, 0.9);
+$white: rgba(247, 247, 247, 1.00);
 
 //light theme
 $lightBackground: rgba(191, 211, 238, 1.00);
-$lightBodyText: rgba(34, 48, 95, 1.00);
 
 //dark theme
 $darkBackground: rgba(34, 48, 95, 1.00);
@@ -19,4 +20,5 @@ $header-font: 'Orbitron', sans-serif;
 $body-font: 'Verdana', sans-serif;
 
 //background
-$darkBackgroundImage: url('../../public/assets/leon-contreras-qpdfU6vehgs-unsplash.jpg');
+$darkBackgroundImage: url('../../public/assets/Untitled_Artwork.png');
+$lightBackgroundImage: url('../../public/assets/light-background.jpg');

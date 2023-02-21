@@ -1,0 +1,34 @@
+@use "_variables.scss" as *;
+
+.loading {
+    position: relative;
+    margin: 75px 0;
+}
+
+.fire {
+    height: 50px;
+    width: 100%;
+    object-fit: fill;
+}
+
+.delorean {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    height: 80px;
+    width: auto;
+    animation-duration: 3s;
+    animation-name: drive;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes drive{
+    from { 
+        left: 0;
+    }
+    to { 
+        left: 75%; 
+    }  
+}

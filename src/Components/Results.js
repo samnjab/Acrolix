@@ -78,11 +78,10 @@ const Results = ({ results, activeKey, endpoint}) => {
                     })}
                 </ul>
                 <div className="buttons">
-                    <button >
                         {liked ?
-                            <i className="fa-solid fa-heart" onClick={handleUnlike}></i>
-                            : <i className="fa-regular fa-heart" onClick={handleLike}></i>}
-                    </button>
+                            <button onClick={handleUnlike}><i className='fa-solid fa-heart'></i></button>
+                            : 
+                            <button onClick={handleLike}><i className='fa-regular fa-heart'></i></button>}
                     <button onClick={handleRandom}><i className="fa-solid fa-arrows-rotate"></i></button>
                 </div>
             </section>

@@ -20,7 +20,8 @@ import './App.scss';
 function App() {
   const [activeKey, setActiveKey] = useState('');
   const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
-  const [context, setContext] = useState('')
+  const [context, setContext] = useState('');
+  const [contextInput, setContextInput] = useState('');
   const [endpoint, setEndpoint] = useState('anon/');
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -53,11 +54,11 @@ function App() {
 }
   useEffect(()=>{
     if (userKey){
-        setActiveKey(userKey)
-        setEndpoint('users/')
+        setActiveKey(userKey);
+        setEndpoint('users/');
     }else {
-      setActiveKey(anonKey)
-      setEndpoint('anon/')
+      setActiveKey(anonKey);
+      setEndpoint('anon/');
     }
   }, [userKey, anonKey])
 
@@ -67,12 +68,14 @@ function App() {
     if (validInput.test(input)) {
       setValidInput(true);
       setWord(input);
+      setContext(contextInput);
       setInput('');
+      setContextInput('');
       navigate('/backronym');
-      setContext('')
     } else {
       setResults([])
       setWord('');
+      setContext('');
       setValidInput(false);
     }
   }
@@ -102,8 +105,13 @@ function App() {
         return (fetchWord(letter));
       })
       )
-      setResults(results);
-      setIsLoading(false);
+      if (results[0].length === 0) {
+        setIsLoading(false);
+        setValidInput(false);
+      } else {
+        setResults(results);
+        setIsLoading(false);
+      }
     }
     getWordsByLetter();
 
@@ -140,8 +148,8 @@ function App() {
           handleSubmit={handleSubmit}
           setInput={setInput}
           input={input}
-          context={context}
-          setContext={setContext}
+          contextInput={contextInput}
+          setContextInput={setContextInput}
         />
         <Routes>
           <Route path='/' element={

@@ -16,7 +16,7 @@
         cursor: pointer;
         &:hover,
         &:focus { 
-            background-color: $darkRed; 
+           
         }
     }
 }
@@ -46,7 +46,7 @@ input[type ='checkbox']{
     transition: 0.2s;
     &:hover,
     &:focus { 
-        background-color: $darkRed; 
+        
     }
     .toggleIcon{ 
         font-size:2.5rem; 
@@ -66,7 +66,7 @@ input[type ='checkbox']{
         transition: 0.2s;
         &:hover,
         &:focus { 
-            background-color: $darkRed; 
+           
         }
         .toggleIcon{ 
             font-size:2.5rem; 
@@ -83,7 +83,7 @@ input[type ='checkbox']{
         width: 45vw;
         height: fit-content;
         font-size: 1.3rem;
-        background-color: $darkRedTransparent;
+        
     }
     &:hover>.infoText {
         display: inline-block;

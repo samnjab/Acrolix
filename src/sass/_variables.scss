@@ -1,24 +1,16 @@
 //colors
-$red: rgba(207, 42, 34, 1.00);
-$yellow: rgba(253, 255, 6, 1.00);
-$teal: rgba(10, 177, 239, 1.00);
 $black: rgba(0, 0, 0, 1.00);
-$gradient: repeating-linear-gradient(to bottom right, $yellow, $red, $red, $yellow) 20;
-$darkRed: rgba(150, 37, 29, 1.00);
-$darkRedTransparent: rgba(150, 37, 29, 0.9);
-$white: rgba(247, 247, 247, 1.00);
+$white: rgb(247, 247, 247);
 
 //light theme
-$lightBackground: rgba(191, 211, 238, 1.00);
+$lightBackground: rgb(247, 247, 247);
+$lightBgTextColor:rgb(0, 0, 0);
 
 //dark theme
-$darkBackground: rgba(34, 48, 95, 1.00);
-$darkBodyText: rgba(205, 217, 228, 1.00);
+$darkBackground: rgb(0, 0, 0);
+$darkBodyText: rgb(247,247, 247);
 
 //fonts
-$header-font: 'Orbitron', sans-serif;
-$body-font: 'Verdana', sans-serif;
+$header-font: sans-serif;
+$body-font: sans-serif;
 
-//background
-$darkBackgroundImage: url('../../public/assets/Untitled_Artwork.png');
-$lightBackgroundImage: url('../../public/assets/light-background.jpg');

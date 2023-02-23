@@ -1,12 +1,8 @@
 @use './variables' as *;
 
 section.savedBackronyms{
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    width: 100%;
-    min-height:200px;
-    max-height:400px;
+    
+    
 }
 
 .savedBackronymList{
@@ -16,23 +12,17 @@ section.savedBackronyms{
     margin: 15px 0;
     cursor:pointer;
     overflow-y: scroll;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 .savedBackronym {
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
+    
     cursor:pointer;
     .buttonContainer {
         opacity: 0;
-        transition: 0.2s;
+        transition: 0.3s;
         button {
             margin: 10px;
-            border: none;
-            background: none;
-            box-shadow: none;
             cursor:pointer;
         }
     }

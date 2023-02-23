@@ -12,6 +12,7 @@
 .signIn {
     button {
         background-color: $black;
+        color:$darkBodyText;
         transition: 0.2s;
         cursor: pointer;
         &:hover,

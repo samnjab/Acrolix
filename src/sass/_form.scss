@@ -1,29 +1,17 @@
 @use './variables' as *; 
 
-.invalidInput {
-    font-size: 16px;
-    font-weight: 500;
-    padding: 10px 15px;
-    margin: 10px;
-    background-color: white;
-    animation: wobble 1s ease, redGlow 0.5s infinite alternate; 
-    outline: none;
+form{
+    min-height:100vh;
+}
 
+.invalidInput {
     
 }
 
 .glow {
-    color: black;
-    background: $lightBackground;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 10px 15px;
-    margin: 10px;
     transition: all 0.3s ease-in-out;
     &:focus {
-        background-color: white;
-        animation: glow 0.5s infinite alternate;
-        outline: none;
+       
     }
     
 } 

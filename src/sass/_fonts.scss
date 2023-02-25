@@ -3,7 +3,7 @@
 html {
     font-family: $body-font;
     color: $darkBodyText;
-    font-size: 62.5%;
+    font-size: 125%;
 }
 
 h2 {
@@ -18,6 +18,9 @@ h3 {
 
 .addHeader {
     
+}
+li{
+    color:$darkBodyText;
 }
 
 li.savedBackronym p {

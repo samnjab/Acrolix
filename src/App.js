@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Components
-import Header from './Components/Header'
+import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
 import Login from './Components/Login';
@@ -20,8 +21,8 @@ import './App.scss';
 function App() {
   const [activeKey, setActiveKey] = useState('');
   const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
-  const [context, setContext] = useState('');
-  const [contextInput, setContextInput] = useState('');
+  // const [context, setContext] = useState('');
+  // const [contextInput, setContextInput] = useState('');
   const [endpoint, setEndpoint] = useState('anon/');
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +31,7 @@ function App() {
   const [theme, setTheme] = useState('dark');
   const [validInput, setValidInput] = useState(true);
   const [userKey, setUserKey] = useState('');
-  const [word, setWord] = useState('');
+  // const [word, setWord] = useState('');
 
   const navigate = useNavigate();
 
@@ -62,60 +63,53 @@ function App() {
     }
   }, [userKey, anonKey])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validInput = /^[A-Za-z]{2,6}$/
+  const checkValid = () => {
+    const validInput = /^[A-Za-z]{2,10}$/
     if (validInput.test(input)) {
       setValidInput(true);
-      setWord(input);
-      setContext(contextInput);
-      setInput('');
-      setContextInput('');
       navigate('/backronym');
     } else {
       setResults([])
-      setWord('');
-      setContext('');
       setValidInput(false);
     }
   }
 
   useEffect(() => {
-    if (word.length === 0) return;
-    setIsLoading(true);
-    const inputLetterArray = [...word];
+    if (input.length === 0) return;
     const fetchWord = async (letter) => {
       try {
         const wordArray = await
           axios({
             url: 'https://api.datamuse.com/words',
             params: {
-              ml: context,
+              // ml: context,
               sp: `${letter}*`
             },
           })
+          if (wordArray.length === 0) {
+            setIsLoading(false);
+            setValidInput(false);
+          }
         return wordArray.data
       } catch (error) {
         return [];
       }
     }
-    const getWordsByLetter = async () => {
+    const getWordsByLetter = async (inputLetterArray) => {
       const results = await Promise.all(inputLetterArray.map(letter => {
-
         return (fetchWord(letter));
       })
       )
-      if (results[0].length === 0) {
-        setIsLoading(false);
-        setValidInput(false);
-      } else {
-        setResults(results);
-        setIsLoading(false);
-      }
+      setResults(results);
+      setIsLoading(false);
     }
-    getWordsByLetter();
-
-  }, [word, context]);
+    checkValid();
+    if (validInput) {
+      const inputLetterArray = [...input];
+      setIsLoading(true);
+      getWordsByLetter(inputLetterArray);
+    }
+  }, [input]);
 
   // LIGHT/DARK FUNCTION
   const toggleTheme = () => {
@@ -132,6 +126,31 @@ function App() {
 
   return (
     <div className={`App ${theme}`}>
+      {/* <div className='container'>
+        <div className='stars'>
+          <span className='star' data-time='11'></span>
+          <span className='star' data-time='12'></span>
+          <span className='star' data-time='13'></span>
+          <span className='star' data-time='14'></span>
+          <span className='star' data-time='15'></span>
+          <span className='star' data-time='16'></span>
+          <span className='star' data-time='17'></span>
+          <span className='star' data-time='8'></span>
+          <span className='star' data-time='19'></span>
+          <span className='star' data-time='20'></span>
+          <span className='star' data-time='21'></span>
+          <span className='star' data-time='22'></span>
+          <span className='star' data-time='23'></span>
+          <span className='star' data-timee='24'></span>
+          <span className='star' data-time='25'></span>
+          <span className='star' data-time='26'></span>
+          <span className='star' data-time='27'></span>
+          <span className='star' data-time='28'></span>
+          <span className='star' data-time='29'></span>
+          <span className='star' data-time='30'></span>
+          <span className='star' data-time='31'></span>
+        </div>
+      </div> */}
       <div className='wrapper'>
         <div className='userSettings'>
           <Login
@@ -141,15 +160,15 @@ function App() {
           />
           <Toggle theme={theme} toggleTheme={toggleTheme} />
         </div>
-        <Header
-          toggleTheme={toggleTheme}
-          theme={theme}
+        <header>
+            <Link to='/'>
+                <h1>Acrolix</h1>
+            </Link>
+        </header>
+        <Form
           validInput={validInput}
-          handleSubmit={handleSubmit}
           setInput={setInput}
           input={input}
-          contextInput={contextInput}
-          setContextInput={setContextInput}
         />
         <Routes>
           <Route path='/' element={

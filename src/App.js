@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 // Components
+import Canvas from './Components/Canvas';
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
@@ -126,50 +127,26 @@ function App() {
 
   return (
     <div className={`App ${theme}`}>
-      {/* <div className='container'>
-        <div className='stars'>
-          <span className='star' data-time='11'></span>
-          <span className='star' data-time='12'></span>
-          <span className='star' data-time='13'></span>
-          <span className='star' data-time='14'></span>
-          <span className='star' data-time='15'></span>
-          <span className='star' data-time='16'></span>
-          <span className='star' data-time='17'></span>
-          <span className='star' data-time='8'></span>
-          <span className='star' data-time='19'></span>
-          <span className='star' data-time='20'></span>
-          <span className='star' data-time='21'></span>
-          <span className='star' data-time='22'></span>
-          <span className='star' data-time='23'></span>
-          <span className='star' data-timee='24'></span>
-          <span className='star' data-time='25'></span>
-          <span className='star' data-time='26'></span>
-          <span className='star' data-time='27'></span>
-          <span className='star' data-time='28'></span>
-          <span className='star' data-time='29'></span>
-          <span className='star' data-time='30'></span>
-          <span className='star' data-time='31'></span>
-        </div>
-      </div> */}
+     <Canvas />
       <div className='wrapper'>
-        <div className='userSettings'>
-          <Login
-            setIsLoggedIn={setIsLoggedIn}
-            isLoggedIn={isLoggedIn}
-            setUserKey={setUserKey}
-          />
-          <Toggle theme={theme} toggleTheme={toggleTheme} />
-        </div>
         <header>
+            <div className='userSettings'>
+              <Login
+                setIsLoggedIn={setIsLoggedIn}
+                isLoggedIn={isLoggedIn}
+                setUserKey={setUserKey}
+              />
+              <Toggle theme={theme} toggleTheme={toggleTheme} />
+            </div>
             <Link to='/'>
                 <h1>Acrolix</h1>
             </Link>
+            <Form
+              validInput={validInput}
+              setInput={setInput}
+              input={input}
+            />
         </header>
-        <Form
-          validInput={validInput}
-          setInput={setInput}
-          input={input}
-        />
         <Routes>
           <Route path='/' element={
             <>

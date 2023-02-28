@@ -5,7 +5,18 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index:10;
     form {
+        z-index:20;
+        input{
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            background-color: transparent;
+            border:none;
+            color:$darkBodyText;
+        }
+
         
     }
 }
+

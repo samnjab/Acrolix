@@ -24,6 +24,8 @@ function App() {
   const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
   // const [context, setContext] = useState('');
   // const [contextInput, setContextInput] = useState('');
+  const [windowDims, setWindowDims ]= useState([window.innerWidth, window.innerHeight])
+  const [scrollTop, setScrollTop] = useState(0)
   const [endpoint, setEndpoint] = useState('anon/');
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -32,9 +34,22 @@ function App() {
   const [theme, setTheme] = useState('dark');
   const [validInput, setValidInput] = useState(true);
   const [userKey, setUserKey] = useState('');
-  // const [word, setWord] = useState('');
+
 
   const navigate = useNavigate();
+  window.addEventListener('resize', ( )=> {
+    setWindowDims([window.innerWidth, window.innerHeight])
+  })
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollTop(window.scrollY)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+
+  }, [])
 
   useEffect(() => {
     if (anonKey) return
@@ -126,43 +141,45 @@ function App() {
   }, [theme]);
 
   return (
-    <div className={`App ${theme}`}>
-     <Canvas />
-      <div className='wrapper'>
-        <header>
-            <div className='userSettings'>
-              <Login
-                setIsLoggedIn={setIsLoggedIn}
-                isLoggedIn={isLoggedIn}
-                setUserKey={setUserKey}
+    <div className={`App ${theme}`} >
+      <div className='layout'>
+        <Canvas windowDims={windowDims} scrollTop={scrollTop}/>
+          <div className='wrapper'>
+            <header>
+                <div className='userSettings'>
+                  <Login
+                    setIsLoggedIn={setIsLoggedIn}
+                    isLoggedIn={isLoggedIn}
+                    setUserKey={setUserKey}
+                  />
+                  <Toggle theme={theme} toggleTheme={toggleTheme} />
+                </div>
+                <Link to='/'>
+                    <h1>Acrolix</h1>
+                </Link>
+                <Form
+                  validInput={validInput}
+                  setInput={setInput}
+                  input={input}
+                />
+            </header>
+            <Routes>
+              <Route path='/' element={
+                <>
+                  {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
+                  <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
+                </>}
               />
-              <Toggle theme={theme} toggleTheme={toggleTheme} />
-            </div>
-            <Link to='/'>
-                <h1>Acrolix</h1>
-            </Link>
-            <Form
-              validInput={validInput}
-              setInput={setInput}
-              input={input}
-            />
-        </header>
-        <Routes>
-          <Route path='/' element={
-            <>
-              {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
-              <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
-            </>}
-          />
-          <Route path='backronym' element={
-            <>
-              {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
-              <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
-            </>}
-          />
-          <Route path='*' element={<Error404 />} />
-        </Routes>
-        <Footer />
+              <Route path='backronym' element={
+                <>
+                  {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
+                  <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
+                </>}
+              />
+              <Route path='*' element={<Error404 />} />
+            </Routes>
+            <Footer />
+          </div>
       </div>
     </div>
   )

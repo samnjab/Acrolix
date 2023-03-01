@@ -1,4 +1,4 @@
-const Form = ({ setInput, input, validInput }) => {
+const Form = ({ setInput, input, validInput, setStopTyping }) => {
     return (
         <form
             onSubmit={(e)=> {
@@ -12,7 +12,10 @@ const Form = ({ setInput, input, validInput }) => {
                 type='text'
                 id='acronym'
                 placeholder='Type Word'
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => {
+                    setInput(e.target.value)
+                    setStopTyping(true)
+                }}
                 value={input}/>
         </form>
     )

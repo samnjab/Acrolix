@@ -11,6 +11,7 @@ import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
 import Login from './Components/Login';
 import Toggle from './Components/Toggle';
+import TypeWriter from './Components/TypeWriter';
 import Footer from './Components/Footer';
 import Loading from './Components/Loading';
 import BadInput from './Components/BadInput';
@@ -34,6 +35,7 @@ function App() {
   const [theme, setTheme] = useState('dark');
   const [validInput, setValidInput] = useState(true);
   const [userKey, setUserKey] = useState('');
+  const [stopTyping, setStopTyping] = useState(false)
 
   window.addEventListener('resize', ( )=> {
     setWindowDims([document.documentElement.clientWidth, document.documentElement.clientHeight])
@@ -157,11 +159,13 @@ function App() {
                         <Link to='/'>
                             <h1>Acrölix</h1>
                         </Link>
+                        <TypeWriter stopTyping={stopTyping}/>
                         <div className='ui'>
                           <Form
                             validInput={validInput}
                             setInput={setInput}
                             input={input}
+                            setStopTyping={setStopTyping}
                           />
                           {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
                         </div>

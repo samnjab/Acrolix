@@ -14,6 +14,7 @@
     }
     p{
         color:$lightBgTextColor;
+        font-weight: 300;
     }
     form{
         input{
@@ -21,6 +22,11 @@
             &::placeholder{
                 color:$secondaryLightText;
             }
+        }
+    }
+    .savedBackronym{
+        p{
+            font-weight: 100;
         }
     }
     .clear{
@@ -34,6 +40,9 @@
     }
     .addHeader {
         color:$lightBgTextColor;
+    }
+    .lock{
+        color:$secondaryLightText;
     }
 }
 

@@ -7,7 +7,7 @@ export default function Canvas({windowDims, scrollTop, theme}){
         currentScroll.current = scrollTop
         const timer = setInterval(() => {
             prevScroll.current = currentScroll.current
-        }, 2000)
+        }, 1000)
         return () => {
             clearInterval(timer)
         }

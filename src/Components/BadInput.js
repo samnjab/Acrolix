@@ -1,9 +1,9 @@
 const BadInput = () => {
     return (
         <>
-            <h3>Bad Input</h3>
-            <h3>Letters only, please. Only real words can be used for context.</h3>
-            <h3>Acronyms can only be created for words between 2 & 6 characters.</h3>
+            <p>Bad Input</p>
+            <p>Letters only</p>
+            <p>between 2 & 10 characters.</p>
         </>
     )
 };

@@ -1,7 +1,7 @@
 // Modules
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 // Components
@@ -35,10 +35,8 @@ function App() {
   const [validInput, setValidInput] = useState(true);
   const [userKey, setUserKey] = useState('');
 
-
-  const navigate = useNavigate();
   window.addEventListener('resize', ( )=> {
-    setWindowDims([window.innerWidth, window.innerHeight])
+    setWindowDims([document.documentElement.clientWidth, document.documentElement.clientHeight])
   })
   useEffect(() => {
     const handleScroll = () => {
@@ -83,7 +81,6 @@ function App() {
     const validInput = /^[A-Za-z]{2,10}$/
     if (validInput.test(input)) {
       setValidInput(true);
-      navigate('/backronym');
     } else {
       setResults([])
       setValidInput(false);
@@ -144,42 +141,38 @@ function App() {
     <div className={`App ${theme}`} >
       <div className='layout'>
         <Canvas windowDims={windowDims} scrollTop={scrollTop} theme={theme}/>
-          <div className='wrapper'>
-            <header>
-                <div className='userSettings'>
-                  <Login
-                    setIsLoggedIn={setIsLoggedIn}
-                    isLoggedIn={isLoggedIn}
-                    setUserKey={setUserKey}
-                  />
-                  <Toggle theme={theme} toggleTheme={toggleTheme} />
-                </div>
-                <Link to='/'>
-                    <h1>Acrölix</h1>
-                </Link>
-                <Form
-                  validInput={validInput}
-                  setInput={setInput}
-                  input={input}
-                />
-            </header>
             <Routes>
               <Route path='/' element={
                 <>
-                  {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
-                  <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
-                </>}
-              />
-              <Route path='backronym' element={
-                <>
-                  {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
-                  <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
+                  <div className='wrapper'>
+                    <header>
+                        <div className='userSettings'>
+                          <Login
+                            setIsLoggedIn={setIsLoggedIn}
+                            isLoggedIn={isLoggedIn}
+                            setUserKey={setUserKey}
+                          />
+                          <Toggle theme={theme} toggleTheme={toggleTheme} />
+                        </div>
+                        <Link to='/'>
+                            <h1>Acrölix</h1>
+                        </Link>
+                        <div className='ui'>
+                          <Form
+                            validInput={validInput}
+                            setInput={setInput}
+                            input={input}
+                          />
+                          {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
+                        </div>
+                    </header>
+                    <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
+                  </div>
                 </>}
               />
               <Route path='*' element={<Error404 />} />
             </Routes>
             <Footer />
-          </div>
       </div>
     </div>
   )

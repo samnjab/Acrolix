@@ -1,7 +1,9 @@
 @use "_variables.scss" as *;
 
 .activeResult { 
-    
+    position:relative;
+    z-index:20;
+    margin-bottom: 1.5rem;
 }
 
 .activeBackronym {
@@ -11,13 +13,16 @@
     align-items: flex-start;
     li {
         text-transform: uppercase;
+        font-size: 2rem;
         &::first-letter {
+            color:$bold;
         }
         &:hover>.lock,
         &:focus>.lock {
             display: inline-block;
         }
-    }  
+    }
+ 
 }
 
 .lock {

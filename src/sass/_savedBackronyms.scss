@@ -1,8 +1,8 @@
 @use './variables' as *;
 
 section.savedBackronyms{
-    
-    
+    position:relative;
+    z-index:20;
 }
 
 .savedBackronymList{
@@ -16,8 +16,16 @@ section.savedBackronyms{
 }
 
 .savedBackronym {
-    
+    font-family:$body-font;
+    font-size:2rem;
+    font-weight:200;
+    span{
+        color:$bold;
+    }
     cursor:pointer;
+    .edit{
+        font-style: italic;
+    }
     .buttonContainer {
         opacity: 0;
         transition: 0.3s;

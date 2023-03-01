@@ -20,16 +20,6 @@ li{
     color:$darkBodyText;
 }
 
-li.savedBackronym p {
-    font-family: $header-font;
-    font-size: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3rem;
-    margin: 15px 7px;
-    &::first-letter {
-       
-    }
-}
 
 footer {
     padding-bottom: 25px;

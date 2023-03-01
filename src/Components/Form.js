@@ -11,7 +11,7 @@ const Form = ({ setInput, input, validInput }) => {
                 className={validInput ? 'glow' : 'invalidInput'}
                 type='text'
                 id='acronym'
-                placeholder=''
+                placeholder='Type Word'
                 onChange={(e) => setInput(e.target.value)}
                 value={input}/>
         </form>

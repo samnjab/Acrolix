@@ -86,7 +86,7 @@ export default function Canvas({windowDims, scrollTop, theme}){
 
     },[windowDims, theme])
     return(
-        <canvas ref={canvasRef}></canvas>
+        <canvas ref={canvasRef} style={{maxWidth:100 + 'vw'}}></canvas>
     )
 
 }

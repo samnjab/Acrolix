@@ -5,18 +5,37 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    z-index:10;
+    // position:relative;
+    // z-index:10;
+    h1{
+        position:relative;
+        z-index:20;
+    }
     form {
         z-index:20;
+        margin-bottom:2rem;
         input{
             -moz-appearance: none;
             -webkit-appearance: none;
             background-color: transparent;
             border:none;
             color:$darkBodyText;
-        }
-
-        
+            font-family:$header-font;
+            font-size:3rem;
+            &::placeholder{
+                font-family:$header-font;
+                font-size:3rem;
+                animation: 3s infinite alternate typeOut;
+            }
+        }   
+    }
+}
+@keyframes typeOut{
+    from{
+        content:'';
+    }
+    to{
+        content:'Type Word';
     }
 }
 

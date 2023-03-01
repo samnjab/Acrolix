@@ -1,16 +1,20 @@
 //colors
 $black: rgba(0, 0, 0, 1.00);
 $white: rgb(247, 247, 247);
+$bold:#e4001c;
 
 //light theme
-$lightBackground: rgb(247, 247, 247);
-$lightBgTextColor:rgb(0, 0, 0);
+$lightBackground: #e3e3e3;
+$lightBgTextColor:#353535;
+$secondaryLightText: #4a4a4a;
 
 //dark theme
-$darkBackground: rgb(0, 0, 0);
-$darkBodyText: rgb(247,247, 247);
+$darkBackground: #1f1f26;
+$darkBodyText: #e3e3e3;
 
 //fonts
-$header-font: sans-serif;
-$body-font: sans-serif;
+$header-font: 'DM Serif Text',
+serif;
+$body-font: 'Lato',
+sans-serif;
 

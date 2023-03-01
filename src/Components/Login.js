@@ -28,9 +28,9 @@ function Login({ isLoggedIn, setIsLoggedIn, setUserKey }) {
   return (
     <div className='signIn'>
       {isLoggedIn ? (
-        <button onClick={logout}>Log Out</button>
+        <button className='signIn' onClick={logout}>Log Out</button>
       ) : (
-        <button onClick={handleClick}>Sign In With Google</button>
+        <button className='signIn' onClick={handleClick}>Sign In</button>
       )}
     </div>
   )

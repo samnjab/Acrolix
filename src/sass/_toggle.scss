@@ -2,10 +2,23 @@
 
 .light {
     background-color: $lightBackground;
+    color:$lightBgTextColor;
+    h1{
+        color:$lightBgTextColor;
+    }
+    button{
+        color:$lightBgTextColor;
+    }
+    .toggle{
+        background-color: $lightBackground;
+    }
+    .signIn{
+        color:$bold;
+    }
 }
 
 .light h3,
 .light footer p,
 .light footer a {
-    color: $lightBgTextColor;
+    color: $lightBgTextColor
 }

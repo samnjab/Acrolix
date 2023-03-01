@@ -92,7 +92,7 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
         <>
             {isLoading ? <Loading /> : (
                 <section className='savedBackronyms'>
-                    <h2>Collection</h2>
+                    <h2> --- Collection</h2>
                     <ul className='savedBackronymList'>
                         {backronymDb.length === 0 ?
                             <p className='addHeader' >+ Add to Collection </p>

@@ -5,13 +5,13 @@ const Form = ({ setInput, input, validInput }) => {
                 e.preventDefault()
                 setInput('');
                 }}>
-            <label htmlFor='acronym' className='sr-only'>What acronym are you creating?</label>
+            <label htmlFor='acronym' className='sr-only'>Type Word</label>
            
             <input
                 className={validInput ? 'glow' : 'invalidInput'}
                 type='text'
                 id='acronym'
-                placeholder='What acronym are you creating?'
+                placeholder=''
                 onChange={(e) => setInput(e.target.value)}
                 value={input}/>
         </form>

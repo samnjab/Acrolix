@@ -143,7 +143,7 @@ function App() {
   return (
     <div className={`App ${theme}`} >
       <div className='layout'>
-        <Canvas windowDims={windowDims} scrollTop={scrollTop}/>
+        <Canvas windowDims={windowDims} scrollTop={scrollTop} theme={theme}/>
           <div className='wrapper'>
             <header>
                 <div className='userSettings'>
@@ -155,7 +155,7 @@ function App() {
                   <Toggle theme={theme} toggleTheme={toggleTheme} />
                 </div>
                 <Link to='/'>
-                    <h1>Acrolix</h1>
+                    <h1>Acrölix</h1>
                 </Link>
                 <Form
                   validInput={validInput}

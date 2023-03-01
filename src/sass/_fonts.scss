@@ -5,17 +5,14 @@ html {
     color: $darkBodyText;
     font-size: 125%;
 }
-
-h2 {
-   
+h1,
+h2,
+h3{
     font-family: $header-font;
 }
-
-h3 {
-    font-family: $header-font;
-    
+h1{
+    font-size:4rem;
 }
-
 .addHeader {
     
 }
@@ -37,18 +34,33 @@ li.savedBackronym p {
 footer {
     padding-bottom: 25px;
     transition: 0.3s;
+    padding:1rem;
+    margin:4rem 0;
+    position: relative;
+    z-index:20;
     p {
         font-family: $header-font;
-        letter-spacing: 0.5rem;
-        font-size: 1.5rem;
+        letter-spacing: 0.3rem;
+        font-size: 1rem;
         text-align: right;
     }
     a {
         text-decoration: none;
         font-weight: 600;
+        color:$darkBodyText;
         text-transform: uppercase;
         &:hover,
         &:focus { text-decoration: underline; }
+        &:visited{
+            color:$darkBodyText;
+        }
+    }
+    .bold{
+        color:$bold;
+        &:visited {
+            color: $bold;
+        }
+
     }
 }
 

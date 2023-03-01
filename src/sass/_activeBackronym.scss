@@ -11,24 +11,49 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
+    width:1rem;
+    overflow-x:visible;
     li {
         text-transform: uppercase;
         font-size: 2rem;
-        &::first-letter {
-            color:$bold;
+        display:flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        max-width:100%;
+        transition: 0.3s ease-in-out;
+        text-align:right;
+        &:hover,
+        &:focus {
+            &>.lock{
+                visibility:visible;
+            }
         }
-        &:hover>.lock,
-        &:focus>.lock {
-            display: inline-block;
+        &:not(:hover){
+            opacity:0.5;
+        }
+        &:nth-of-type(even){
+            transform: rotateY(180deg);
+            align-self: flex-end;
+            flex-direction: row-reverse;
+
+        }
+    }
+    p{
+        margin:0;
+        padding:0;
+        font-size: 2rem;
+        &::first-letter {
+            color: $bold;
         }
     }
  
 }
 
 .lock {
-    display:none;
+    visibility:hidden;
     opacity:0.7;
-    font-size:1rem;
+    font-size:0.75rem;
     margin: 0 1rem;
     color:rgba(255, 255, 255, 0.9);
     cursor: pointer;

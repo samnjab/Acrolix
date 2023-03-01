@@ -39,6 +39,21 @@ img {
     object-fit: cover;
     width: 100%;
 }
+svg{
+    position:relative;
+    z-index:30;
+    g{
+        position:relative;
+        z-index:30;
+        path{
+            position:relative;
+            z-index:30;
+            color:$darkBodyText;
+        }
+
+    }
+
+}
 
 button {
     -moz-appearance:none;

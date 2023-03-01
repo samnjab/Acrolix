@@ -167,12 +167,13 @@ function App() {
                         </div>
                     </header>
                     <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
+                     <Footer />
                   </div>
                 </>}
               />
               <Route path='*' element={<Error404 />} />
             </Routes>
-            <Footer />
+           
       </div>
     </div>
   )

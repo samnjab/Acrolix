@@ -92,7 +92,13 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
         <>
             {isLoading ? <Loading /> : (
                 <div className='savedBackronyms'>
-                    <h2> --- Collection</h2>
+                    {/* <svg>
+                        <g>
+                            <path d="M172.60036,520.77416H-5.59788v-5.71972H172.60036Z">hello</path>
+
+                        </g>
+                    </svg> */}
+                    <h2>Collection</h2>
                     <ul className='savedBackronymList'>
                         {backronymDb.length === 0 ?
                             <p className='addHeader' >+ Add to Collection </p>

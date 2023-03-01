@@ -10,10 +10,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
-    width:1rem;
+    align-items: flex-end;
+    width:10rem;
     overflow-x:visible;
+    margin-right:2rem;
     li {
+        width:1rem;
         text-transform: uppercase;
         font-size: 2rem;
         display:flex;
@@ -33,8 +35,8 @@
             opacity:0.5;
         }
         &:nth-of-type(even){
-            transform: rotateY(180deg);
-            align-self: flex-end;
+            transform: rotateY(180deg) translateX(2rem);
+            align-self: flex-start;
             flex-direction: row-reverse;
 
         }
@@ -43,6 +45,7 @@
         margin:0;
         padding:0;
         font-size: 2rem;
+        text-align:right;
         &::first-letter {
             color: $bold;
         }

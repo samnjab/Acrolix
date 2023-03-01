@@ -6,14 +6,34 @@
     h1{
         color:$lightBgTextColor;
     }
+    h2{
+        color:$secondaryLightText;
+    }
     button{
         color:$lightBgTextColor;
+    }
+    p{
+        color:$lightBgTextColor;
+    }
+    form{
+        input{
+            color:$secondaryLightText;
+            &::placeholder{
+                color:$secondaryLightText;
+            }
+        }
+    }
+    .clear{
+        color:$bold;
     }
     .toggle{
         background-color: $lightBackground;
     }
     .signIn{
         color:$bold;
+    }
+    .addHeader {
+        color:$lightBgTextColor;
     }
 }
 

@@ -87,17 +87,18 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
         const database = getDatabase(firebase);
         set(ref(database, endpoint + activeKey + `/${backronym.key}`), backronym.data);
     };
+    const handleLock = (j) => {
+        setNewBackronymDb([...newBackronymDb.slice(0, j), {wordData: newBackronymDb[j].wordData, locked:true }, ...newBackronymDb.slice(j + 1, newBackronymDb.length)])
+    };
+
+    const handleUnlock = (j) => {
+        setNewBackronymDb([...newBackronymDb.slice(0, j), {wordData: newBackronymDb[j].wordData, locked:false }, ...newBackronymDb.slice(j + 1, newBackronymDb.length)])
+    };
     
     return (
         <>
             {isLoading ? <Loading /> : (
                 <div className='savedBackronyms'>
-                    {/* <svg>
-                        <g>
-                            <path d="M172.60036,520.77416H-5.59788v-5.71972H172.60036Z">hello</path>
-
-                        </g>
-                    </svg> */}
                     <h2>Collection</h2>
                     <ul className='savedBackronymList'>
                         {backronymDb.length === 0 ?
@@ -109,11 +110,21 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
                                         <li className='savedBackronym' key={backronym.key}>
                                             {backronym.editOn ?
                                                 <>
-                                                    <p className='edit'>
+                                                    <div className='edit'>
                                                         {newBackronymDb[i].data.map((wordObj, j) => {
-                                                            return (<><span key={`${j}${backronym.key}`}>{`${wordObj.wordData.word} `.slice(0, 1).toUpperCase()}</span>{`${wordObj.wordData.word} `.slice(1).toLowerCase()}</>)
+                                                            return (
+                                                            <>
+                                                                <p className='word'>
+                                                                    <span key={`${j}${backronym.key}`}>{`${wordObj.wordData.word} `.slice(0, 1).toUpperCase()}</span>{`${wordObj.wordData.word} `.slice(1).toLowerCase()}
+                                                                </p>
+                                                                {wordObj.locked ? 
+                                                                <i className='fa-solid fa-lock editLock editLocked' onClick={() => handleUnlock(j)}></i>
+                                                                : 
+                                                                <i className='fa-solid fa-unlock editLock editUnlocked' onClick={() => handleLock(j)}></i>}
+                                                            </>
+                                                            )
                                                         })}
-                                                    </p>
+                                                    </div>
                                                     <div className="buttonContainer">
                                                         <button className='refresh' onClick={() => handleRefresh(backronym, i)}><i className="fa-solid fa-arrows-rotate"></i></button>
                                                         <button className='save' onClick={() => handleSave(newBackronymDb[i])}><i className="fa-solid fa-cloud-arrow-up"></i></button>

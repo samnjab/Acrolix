@@ -66,7 +66,6 @@ const Results = ({ results, activeKey, endpoint}) => {
             <></> :
             <div className="activeResult">
                 <ul className="activeBackronym">
-                    
                     { backronymToDisplay.map((wordObj, i) => {
                         return <li key={`${wordObj.wordData?.score}${i}`}>
                             <p>

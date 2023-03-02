@@ -35,6 +35,8 @@ function App() {
   const [results, setResults] = useState([]);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const [validInput, setValidInput] = useState(true);
+  const lengthError = useRef(false)
+  const letterError = useRef(false)
   const [userKey, setUserKey] = useState('');
   const [stopTyping, setStopTyping] = useState(false)
 
@@ -105,9 +107,18 @@ function App() {
     const validInput = /^[A-Za-z]{2,10}$/
     if (validInput.test(input)) {
       setValidInput(true);
+      lengthError.current = false
+      letterError.current = false
+      console.log('lengthError in app', lengthError.current, 'letterError in app', letterError.current)
     } else {
       setResults([])
       setValidInput(false);
+      if(/[^A-Za-z]/.test(input)){
+        letterError.current = true
+      }
+      else if(/[A-Za-z]{11,}/.test(input) || /[A-Za-z]{1}/.test(input)){
+        lengthError.current = true
+      }
     }
   }
 
@@ -189,7 +200,7 @@ function App() {
                               input={input}
                               setStopTyping={setStopTyping}
                             />
-                            {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
+                            {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput letterError={letterError.current} lengthError={lengthError.current}/>)}
                           </div>
                       </header>
                       <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />

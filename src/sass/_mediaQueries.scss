@@ -1,23 +1,53 @@
 @use 'variables' as *;
 
-@media (max-width: 1000px) {
-}
-   
-
-@media (max-width: 775px) {
-}
-
-
 @media (max-width: 700px) {
+    h2{
+        font-size:2rem;
+    }
+    .savedBackronym{
+        font-size:1.5rem;
+    }
+
+    footer{
+        p{
+            font-size: 0.8rem;
+        }
+    }
+    header{
+        form{
+            input{
+                font-size: 2rem;
+                &::placeholder{
+                    font-size:2rem;
+                }
+            }
+        }
+        .activeBackronym{
+            max-width:90%;
+        }
+    }
 }
 
     
 
 @media (max-width: 500px) {
+    .wrapper{
+        width:100%;
+        padding:0 10px;
+    }
+    h1{
+        font-size:3rem;
+    }
+    footer{
+        p{
+            line-height: 1.8;
+        }
+    }
+    .activeBackronym{
+        p{
+            font-size: 2rem;
+        }
+    }
 
 }
 
-
-@media (max-width: 400px) {
-
-}

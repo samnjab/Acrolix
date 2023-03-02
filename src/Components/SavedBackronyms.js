@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from '../firebase';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getDatabase, onValue, ref, remove, set } from 'firebase/database';
 import Loading from './Loading';
 
@@ -8,6 +8,8 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
     const [backronymDb, setBackronymDb] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [newBackronymDb, setNewBackronymDb] = useState([]);
+    const [results, setResults] = useState({backronym:{}, index:null, apiResults:[]})
+    const [randomize, setRandomize] = useState(false)
 
     useEffect(() => {
         if (!activeKey) return
@@ -62,6 +64,7 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
 
     const handleEdit = (backronym, i) => {
         setBackronymDb([...backronymDb.slice(0, i), { key: backronym.key, data: backronym.data, editOn: !(backronym.editOn) }, ...backronymDb.slice(i + 1, backronymDb.length)]);
+        setResults({backronym:backronym, index:i, apiResults:[]})
         setNewBackronymDb([...backronymDb]);
     }
 
@@ -70,24 +73,37 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
             return wordObj.wordData.word.slice(0, 1)
         })
         const getWordsByLetter = async () => {
-            const results = await Promise.all(inputLetterArray.map(letter => {
+            let apiResults = await Promise.all(inputLetterArray.map(letter => {
                 return (fetchWord(letter));
             })
             )
-            const newBackromymData = results.map((wordArray, i) => {
-                if (backronym.data[i].locked) return backronym.data[i]
-                return { wordData: randomItem(wordArray), locked: false }
-            })
-            setNewBackronymDb([...newBackronymDb.slice(0, i), { key: backronym.key, data: newBackromymData, editOn: backronym.editOn }, ...newBackronymDb.slice(i + 1, newBackronymDb.length)]);
+            setResults({backronym:results.backronym, index:results.index, apiResults:apiResults})
         }
-        getWordsByLetter();
+        if(results.apiResults.length === 0) {
+            console.log('api results empy')
+            getWordsByLetter();
+           
+        }
+        else{
+            setRandomize(!randomize)
+        }
+        
     };
+    useEffect(() => {
+        let newBackromymData = results.apiResults.map((wordArray, i) => {
+        if (results.backronym.data[i].locked) return results.backronym.data[results.index]
+            return { wordData: randomItem(wordArray), locked: false }
+        })
+        setNewBackronymDb([...newBackronymDb.slice(0, results.index), { key: results.backronym.key, data: newBackromymData, editOn: results.backronym.editOn }, ...newBackronymDb.slice(results.index + 1, newBackronymDb.length)]);
+    },[results.apiResults, randomize])
 
     const handleSave = (backronym) => {
         const database = getDatabase(firebase);
         set(ref(database, endpoint + activeKey + `/${backronym.key}`), backronym.data);
+        setResults({backronym:{}, index:null, apiResults:[]})
     };
     const handleLock = (j) => {
+        console.log('j is', j, 'newBackronymDb at j is',newBackronymDb[j])
         setNewBackronymDb([...newBackronymDb.slice(0, j), {wordData: newBackronymDb[j].wordData, locked:true }, ...newBackronymDb.slice(j + 1, newBackronymDb.length)])
     };
 
@@ -112,6 +128,7 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
                                                 <>
                                                     <div className='edit'>
                                                         {newBackronymDb[i].data.map((wordObj, j) => {
+                                                            {console.log('word obj is', wordObj)}
                                                             return (
                                                             <>
                                                                 <p className='word'>

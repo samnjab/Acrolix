@@ -4,6 +4,7 @@ export default function TypeWriter({stopTyping, setStopTyping}){
     const stopCue = useRef(stopTyping)
     useEffect(()=>{
             stopCue.current = stopTyping
+            if(stopTyping) return
             class TxtType {
                 constructor(el, toRotate, period){
                     this.toRotate = toRotate;
@@ -36,35 +37,36 @@ export default function TypeWriter({stopTyping, setStopTyping}){
                         this.isDeleting = false;
                         this.loopNum++;
                         if(this.loopNum >= this.toRotate.length){
-                            setStopTyping(true)
                             stopCue.current = true
                         }
                         delta = 500;
                     }
-                    setTimeout(function() {
-                        if(!stopCue.current){
+                    if(!stopCue.current){
+                        const timer = setTimeout(function() {
                             that.tick();
-                        } 
-                    }, delta);
+                        }, delta);
+                    }else{
+                        setStopTyping(stopCue.current)
+                    }
                     
                 }
             }
-            // setStopTyping(false)
-            const elements = document.getElementsByClassName('typeWrite')
+        // setStopTyping(false)
+        const elements = document.getElementsByClassName('typeWrite')
         for(let i =0; i < elements.length; i++){
             let toRotate = elements[i].getAttribute('data-type')
             let period = elements[i].getAttribute('data-period')
             if (toRotate) {
-                setTimeout(()=>{
+                const timer = setTimeout(()=>{
                     new TxtType(elements[i], JSON.parse(toRotate), period);
-                }, 3000)
+                }, 1000)
             }
         }
 
     },[stopTyping])
     return(
         <>
-            <a className='typeWrite' data-period='3000' data-type='[ "backronym: n. blend of back and acronym", "an acronym deliberately formed from a phrase whose initial letters spell out a particular word", "type to get started." ]'></a>
+            <a className='typeWrite' data-period='3000' data-type='[ "Acrölix is a backronym generator.","Backronym: n. an acronym deliberately formed from a phrase whose initial letters spell out a particular word.", "type to get started." ]'></a>
         </>
     )
 }

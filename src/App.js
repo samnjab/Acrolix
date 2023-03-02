@@ -180,10 +180,7 @@ function App() {
                             />
                             <Toggle theme={theme} toggleTheme={toggleTheme} />
                           </div>
-                          <Link to='/'>
-                              <h1 onClick={()=>setStopTyping(false)}>Acrölix</h1>
-                          </Link>
-                          {console.log('stop typing in app is', stopTyping)}
+                          <h1 onClick={()=>setStopTyping(false)}>Acrölix</h1>
                           <TypeWriter stopTyping={stopTyping} setStopTyping={setStopTyping}/>
                           <div className='ui'>
                             <Form

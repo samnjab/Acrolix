@@ -32,10 +32,6 @@ export default function Canvas({windowDims, scrollTop, theme}){
             context.fill()
             context.closePath()
             context.beginPath()
-            // context.arc(this.shadowX, this.shadowY, this.radius, 0, Math.PI * 2, false)
-            // context.fillStyle = this.ShadowColor
-            // context.fill()
-            // context.closePath()
         }
         update(canvas, context){
             this.draw(context)
@@ -54,8 +50,6 @@ export default function Canvas({windowDims, scrollTop, theme}){
             }
             this.x += this.dx * 0.5 * (0.3 *(Math.sqrt(Math.sqrt(Math.max(currentScroll.current, prevScroll.current) - Math.min(currentScroll.current, prevScroll.current))) + 1))
             this.y += this.dy * 0.3 *(Math.sqrt(Math.sqrt(Math.max(currentScroll.current, prevScroll.current) - Math.min(currentScroll.current, prevScroll.current))) + 1)
-            // this.shadowX = this.x + this.shadowDx
-            // this.shadowY = this.y + this.shadowDy
         }
     }
     useEffect(() => {
@@ -65,7 +59,7 @@ export default function Canvas({windowDims, scrollTop, theme}){
         canvas.height = windowDims[1]
         const circleArray = []
         let colorArray = ['#FFF0F3', '#FFCCD5', '#FFB3C1', '#FF8FA3', '#FF758F', '#F7E3AF', '#FBF2DA']
-        if (theme === 'light') colorArray = ['#F4F1DE', '#E07A5F', '#3D405B', '#81B29A', '#F2CC8F']
+        if (theme === 'light') colorArray = ['#E0D8A3', '#E07A5F', '#3D405B', '#81B29A', '#F2CC8F']
         for (let i=0; i < 100; i++){
             const dy = (Math.random() - 0.5)
             const shadowDx = [0.5, -0.5]

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export default function TypeWriter(){
     class TxtType {
         constructor(el, toRotate, period){
@@ -38,7 +40,7 @@ export default function TypeWriter(){
             
         }
     }
-    window.onload = () => {
+    useEffect(()=>{
         const elements = document.getElementsByClassName('typeWrite')
         console.log('elements', elements)
         for(let i =0; i < elements.length; i++){
@@ -49,11 +51,11 @@ export default function TypeWriter(){
                 new TxtType(elements[i], JSON.parse(toRotate), period);
             }
         }
-    }
+
+    },[])
     return(
         <>
-            <a className='typeWrite' data-period='3000' data-type='[ "backronym: n. blend of back and acronym", "an acronym deliberately formed from a phrase whose initial letters spell out a particular word", "type to get started" ]'></a>
-            <span className='wrap'></span>
+            <a className='typeWrite' data-period='3000' data-type='[ "backronym: n. blend of back and acronym", "an acronym deliberately formed from a phrase whose initial letters spell out a particular word", "type to get started." ]'></a>
         </>
     )
 }

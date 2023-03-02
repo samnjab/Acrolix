@@ -1,5 +1,5 @@
 // Modules
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -21,6 +21,9 @@ import Error404 from './Components/Error404';
 import './App.scss';
 
 function App() {
+  const [begin, setBegin] = useState(false);
+  const percentLoad = useRef(0)
+  const [displayLoad, setDisplayLoad] = useState(0)
   const [activeKey, setActiveKey] = useState('');
   const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
   // const [context, setContext] = useState('');
@@ -41,6 +44,28 @@ function App() {
     setWindowDims([document.documentElement.clientWidth, document.documentElement.clientHeight])
   })
   useEffect(() => {
+    let delta = 200
+    const tick = () => {
+      percentLoad.current += 1
+      delta = 250 - Math.random() * 200
+      setDisplayLoad(percentLoad.current)
+      console.log('incrememnt', percentLoad.current)
+      if (percentLoad.current > 100) {
+        setBegin(true)
+        percentLoad.current = 0
+        setDisplayLoad(0)
+        // clearTimeout(loadingTimer)
+        return
+      }else{
+        setTimeout(()=> {
+          if(!begin) tick()
+        }, delta)
+      }
+    }
+    if (!begin){
+      tick()
+    }
+    
     const handleScroll = () => {
       setScrollTop(window.scrollY)
     }
@@ -50,6 +75,10 @@ function App() {
     }
 
   }, [])
+  // useEffect(() => {
+  //   setDisplayLoad(percentLoad.current)
+  //   console.log(displayLoad)
+  // }, [percentLoad.current])
 
   useEffect(() => {
     if (anonKey) return
@@ -140,46 +169,54 @@ function App() {
   }, [theme]);
 
   return (
-    <div className={`App ${theme}`} >
-      <div className='layout'>
-        <Canvas windowDims={windowDims} scrollTop={scrollTop} theme={theme}/>
-            <Routes>
-              <Route path='/' element={
-                <>
-                  <div className='wrapper'>
-                    <header>
-                        <div className='userSettings'>
-                          <Login
-                            setIsLoggedIn={setIsLoggedIn}
-                            isLoggedIn={isLoggedIn}
-                            setUserKey={setUserKey}
-                          />
-                          <Toggle theme={theme} toggleTheme={toggleTheme} />
-                        </div>
-                        <Link to='/'>
-                            <h1>Acrölix</h1>
-                        </Link>
-                        <TypeWriter stopTyping={stopTyping}/>
-                        <div className='ui'>
-                          <Form
-                            validInput={validInput}
-                            setInput={setInput}
-                            input={input}
-                            setStopTyping={setStopTyping}
-                          />
-                          {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
-                        </div>
-                    </header>
-                    <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
-                     <Footer />
-                  </div>
-                </>}
-              />
-              <Route path='*' element={<Error404 />} />
-            </Routes>
-           
+    <> {begin ?
+      <div className={`App ${theme}`} >
+        <div className='layout'>
+          <Canvas windowDims={windowDims} scrollTop={scrollTop} theme={theme}/>
+              <Routes>
+                <Route path='/' element={
+                  <>
+                    <div className='wrapper'>
+                      <header>
+                          <div className='userSettings'>
+                            <Login
+                              setIsLoggedIn={setIsLoggedIn}
+                              isLoggedIn={isLoggedIn}
+                              setUserKey={setUserKey}
+                            />
+                            <Toggle theme={theme} toggleTheme={toggleTheme} />
+                          </div>
+                          <Link to='/'>
+                              <h1>Acrölix</h1>
+                          </Link>
+                          <TypeWriter stopTyping={stopTyping}/>
+                          <div className='ui'>
+                            <Form
+                              validInput={validInput}
+                              setInput={setInput}
+                              input={input}
+                              setStopTyping={setStopTyping}
+                            />
+                            {validInput ? (isLoading ? <Loading /> : <Results results={results} activeKey={activeKey} endpoint={endpoint} />) : (<BadInput />)}
+                          </div>
+                      </header>
+                      <SavedBackronyms isLoggedIn={isLoggedIn} activeKey={activeKey} endpoint={endpoint} />
+                      <Footer />
+                    </div>
+                  </>}
+                />
+                <Route path='*' element={<Error404 />} />
+              </Routes>
+        </div>
       </div>
-    </div>
+      :
+      <div className='welcome'>
+        <Toggle theme={theme} toggleTheme={toggleTheme} />
+        <p >Welcome to Acrölix...</p>
+        <p>{displayLoad}%</p>
+      </div>
+        }
+    </>
   )
 };
 

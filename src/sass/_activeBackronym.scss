@@ -1,65 +1,69 @@
 @use "_variables.scss" as *;
 
 .activeResult { 
-    width: 75%; 
+    position:relative;
+    z-index:20;
+    margin-bottom: 1.5rem;
+    max-width:100%;
 }
 
 .activeBackronym {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    min-height: 15vh;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    width:fit-content;
+    overflow-x:visible;
+    margin-right:2rem;
     li {
-        margin: 5px;
-        color: $red;
-        font-family: $header-font;
-        font-size: 5rem;
-        font-weight: 800;
-        text-align: center;
-        font-style: italic;
+        width:100%;
         text-transform: uppercase;
-        -webkit-text-stroke-width: 0.15rem;
-        -webkit-text-stroke-color: $teal;
-        text-shadow: $teal -20px 0px 39px;
+        font-size: 1.5rem;
+        display:flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        max-width:100%;
+        transition: 0.3s ease-in-out;
+        text-align:right;
+        &:hover,
+        &:focus {
+            &>.lock{
+                visibility:visible;
+            }
+        }
+        &:not(:hover){
+            opacity:0.8;
+        }
+        &:nth-of-type(even){
+            transform: rotateY(180deg);
+            align-self: flex-start;
+            flex-direction: row-reverse;
+
+        }
+    }
+    p{
+        margin:0;
+        padding:0;
+        font-size: 2.5rem;
+        text-align:right;
         &::first-letter {
-            font-size: 7rem;
-            padding-right: 20px;
-            margin-right: -20px;
-            background: -webkit-linear-gradient(-45deg, $red 34%, $yellow 59%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            -webkit-text-stroke-color: $teal;
-            text-shadow: none;
+            color: $bold;
         }
-        &:hover>.lock,
-        &:focus>.lock {
-            display: inline-block;
-        }
-    }  
+    }
+ 
 }
 
 .lock {
-    display:none;
-    background-color: rgba(0, 0, 0, 0);
+    visibility:hidden;
     opacity:0.7;
-    background-image: none;
-    border:none;
-    box-shadow: none;
-    font-size:2rem;
+    font-size:0.75rem;
     margin: 0 1rem;
     color:rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    &:hover,
-    &:focus {
-        background-color: $black;
-        background-image: none;
-        border: none;
-        box-shadow: none;
-    }
 }
 
 .lock.locked {
-    display:inline-block;
+   visibility: visible;
 }
+

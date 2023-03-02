@@ -91,7 +91,13 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
     return (
         <>
             {isLoading ? <Loading /> : (
-                <section className='savedBackronyms'>
+                <div className='savedBackronyms'>
+                    {/* <svg>
+                        <g>
+                            <path d="M172.60036,520.77416H-5.59788v-5.71972H172.60036Z">hello</path>
+
+                        </g>
+                    </svg> */}
                     <h2>Collection</h2>
                     <ul className='savedBackronymList'>
                         {backronymDb.length === 0 ?
@@ -103,9 +109,11 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
                                         <li className='savedBackronym' key={backronym.key}>
                                             {backronym.editOn ?
                                                 <>
-                                                    {newBackronymDb[i].data.map((wordObj, i) => {
-                                                        return (<p key={`${i}${backronym.key}`}>{wordObj.wordData.word}</p>)
-                                                    })}
+                                                    <p className='edit'>
+                                                        {newBackronymDb[i].data.map((wordObj, j) => {
+                                                            return (<><span key={`${j}${backronym.key}`}>{`${wordObj.wordData.word} `.slice(0, 1).toUpperCase()}</span>{`${wordObj.wordData.word} `.slice(1).toLowerCase()}</>)
+                                                        })}
+                                                    </p>
                                                     <div className="buttonContainer">
                                                         <button className='refresh' onClick={() => handleRefresh(backronym, i)}><i className="fa-solid fa-arrows-rotate"></i></button>
                                                         <button className='save' onClick={() => handleSave(newBackronymDb[i])}><i className="fa-solid fa-cloud-arrow-up"></i></button>
@@ -114,9 +122,11 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
                                                 </>
                                                 :
                                                 <>
+                                                    <p className='nonEdit'>
                                                         {backronym.data.map((letter, j) => {
-                                                            return (<p key={`${j}${backronym.key}`}>{letter.wordData.word}</p>)
+                                                            return (<><span key={`${j}${backronym.key}`}>{`${letter.wordData.word} `.slice(0, 1).toUpperCase()}</span>{`${letter.wordData.word} `.slice(1).toLowerCase()}</>)
                                                         })}
+                                                    </p>
                                                     <div className="buttonContainer">
                                                         <button className='delete' onClick={() => handleTrash(backronym)}><i className='fa-solid fa-trash'></i></button>
                                                         <button className='edit' onClick={() => handleEdit(backronym, i)}><i className='fa-solid fa-pen'></i></button>
@@ -130,7 +140,7 @@ const SavedBackronyms = ({ activeKey, endpoint }) => {
                         }
                     </ul>
                     <button className='clear' onClick={clearData}>Clear All</button>
-                </section>
+                </div>
             )}
         </>
     )

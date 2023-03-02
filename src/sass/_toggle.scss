@@ -2,11 +2,52 @@
 
 .light {
     background-color: $lightBackground;
-    background-image: $lightBackgroundImage;
+    color:$lightBgTextColor;
+    h1{
+        color:$lightBgTextColor;
+    }
+    h2{
+        color:$secondaryLightText;
+    }
+    button{
+        color:$lightBgTextColor;
+    }
+    p{
+        color:$lightBgTextColor;
+        font-weight: 300;
+    }
+    form{
+        input{
+            color:$secondaryLightText;
+            &::placeholder{
+                color:$secondaryLightText;
+            }
+        }
+    }
+    .savedBackronym{
+        p{
+            font-weight: 100;
+        }
+    }
+    .clear{
+        color:$bold;
+    }
+    .toggle{
+        background-color: $lightBackground;
+    }
+    .signIn{
+        color:$bold;
+    }
+    .addHeader {
+        color:$lightBgTextColor;
+    }
+    .lock{
+        color:$secondaryLightText;
+    }
 }
 
 .light h3,
 .light footer p,
 .light footer a {
-    color: $black;
+    color: $lightBgTextColor
 }

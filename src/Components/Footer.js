@@ -1,9 +1,8 @@
 const Footer = () => {
     return (
         <footer>
-            <p>Invented by <a href='https://christianyuen.com'>Christian Yuen</a>, <a href='https://mattspencercodes.com/'>Matt Spencer</a>,</p>
-            <p><a href='https://itsoliviasparks.com'>Olivia Sparks</a>, & <a href='https://samjaberi.dev/'>Sam Jaberi</a>.</p>
-            <p>"<a href='https://junocollege.com'>Juno College</a>, My Density Has Brought Me To You."</p>
+            <p>Motion & UI Development by <a href='https://samjaberi.dev/'> Sam J.</a></p>
+            <p>O.G. Project by <a href='https://christianyuen.com'>Christian Y.</a><a href='https://mattspencercodes.com/'> Matt S.</a><a href='https://itsoliviasparks.com'> Olivia S.</a>& <a href='https://samjaberi.dev/'> Sam J.</a><a href='https://junocollege.com' className='bold'> @Juno </a></p>
         </footer>
     );
 };

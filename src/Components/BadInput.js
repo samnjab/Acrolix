@@ -1,10 +1,24 @@
-const BadInput = () => {
+const BadInput = ({lengthError, letterError}) => {
+    console.log('lengthError:', lengthError, 'letterError:', letterError)
     return (
-        <>
-            <h3>Bad Input</h3>
-            <h3>Letters only, please. Only real words can be used for context.</h3>
-            <h3>Acronyms can only be created for words between 2 & 6 characters.</h3>
-        </>
+        <div className='badInput'> 
+            <p>Bad Input</p>
+            {
+                letterError && lengthError ?
+                <>
+                    <p>Words must be between 2 & 10 characters.</p>
+                    <p>Letters only. </p>
+                </>
+                :
+                lengthError ? 
+                    <p>Words must be between 2 & 10 characters.</p>
+                : letterError ?
+                    <p>Letters only</p>
+                :
+                <></>
+            }
+            
+        </div>
     )
 };
 

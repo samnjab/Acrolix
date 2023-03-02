@@ -64,12 +64,14 @@ const Results = ({ results, activeKey, endpoint}) => {
         <>
             {backronymToDisplay.length === 0 ? 
             <></> :
-            <section className="activeResult">
+            <div className="activeResult">
                 <ul className="activeBackronym">
                     
                     { backronymToDisplay.map((wordObj, i) => {
                         return <li key={`${wordObj.wordData?.score}${i}`}>
-                            {wordObj.wordData?.word}
+                            <p>
+                                {wordObj.wordData?.word}
+                            </p>
                             {wordObj.locked ? 
                             <i className='fa-solid fa-lock lock locked' onClick={() => handleUnlock(i)}></i>
                             : 
@@ -84,7 +86,7 @@ const Results = ({ results, activeKey, endpoint}) => {
                             <button onClick={handleLike}><i className='fa-regular fa-heart'></i></button>}
                     <button onClick={handleRandom}><i className="fa-solid fa-arrows-rotate"></i></button>
                 </div>
-            </section>
+            </div>
             }
         </>
     );

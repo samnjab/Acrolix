@@ -6,21 +6,13 @@
     align-items: center;
     padding-top: 15px;
     position: relative;
-    z-index: 2;
+    z-index: 20;
+    cursor:pointer;
 }
-
-.signIn {
-    button {
-        background-color: $black;
-        transition: 0.2s;
-        cursor: pointer;
-        &:hover,
-        &:focus { 
-            background-color: $darkRed; 
-        }
-    }
+.signIn{
+    color:$bold;
+    cursor:pointer;
 }
-
 input[type ='checkbox']{
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -31,69 +23,28 @@ input[type ='checkbox']{
     position:absolute;
     top:0;
     left:0;
+    z-index: 20;
     cursor: pointer;
 }
 
 .toggle{
     position:relative;
-    background-color: $black;
+    background-color: $darkBackground;
+    // color:$darkBodyText;
     display:flex;
-    width:4rem;
-    height:4rem;
+    width:2rem;
+    height:2rem;
     border-radius: 50%;
     justify-content: center;
     align-items: center;
     transition: 0.2s;
     &:hover,
     &:focus { 
-        background-color: $darkRed; 
+        
     }
     .toggleIcon{ 
-        font-size:2.5rem; 
+        font-size:1rem; 
     }
 }
 
-.info {
-    position: relative;
-    .infoIcon {
-        background-color: $black;
-        display:flex;
-        width:4rem;
-        height:4rem;
-        border-radius: 50%;
-        justify-content: center;
-        align-items: center;
-        transition: 0.2s;
-        &:hover,
-        &:focus { 
-            background-color: $darkRed; 
-        }
-        .toggleIcon{ 
-            font-size:2.5rem; 
-        }
-    }
-    i {
-        font-size: 2.2rem;
-    }
-    .infoText {
-        position: absolute;
-        top: 50px;
-        right: 0;
-        display: none;
-        width: 45vw;
-        height: fit-content;
-        font-size: 1.3rem;
-        background-color: $darkRedTransparent;
-    }
-    &:hover>.infoText {
-        display: inline-block;
-    }
-}
-
-.infoText p {
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-left: 10px;
-
-}
 

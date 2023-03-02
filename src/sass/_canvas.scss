@@ -1,0 +1,14 @@
+@use './variables' as *;
+.layout{
+    position:relative;
+    width:100vw;
+
+}
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    height:644px;
+    max-width:100vw;
+    overflow-x: hidden;
+}

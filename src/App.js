@@ -26,8 +26,6 @@ function App() {
   const [displayLoad, setDisplayLoad] = useState(0)
   const [activeKey, setActiveKey] = useState('');
   const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
-  // const [context, setContext] = useState('');
-  // const [contextInput, setContextInput] = useState('');
   const [windowDims, setWindowDims ]= useState([window.innerWidth, window.innerHeight])
   const [scrollTop, setScrollTop] = useState(0)
   const [endpoint, setEndpoint] = useState('anon/');
@@ -35,7 +33,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [results, setResults] = useState([]);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const [validInput, setValidInput] = useState(true);
   const [userKey, setUserKey] = useState('');
   const [stopTyping, setStopTyping] = useState(false)
@@ -49,12 +47,10 @@ function App() {
       percentLoad.current += 1
       delta = 250 - Math.random() * 200
       setDisplayLoad(percentLoad.current)
-      console.log('incrememnt', percentLoad.current)
       if (percentLoad.current > 100) {
         setBegin(true)
         percentLoad.current = 0
         setDisplayLoad(0)
-        // clearTimeout(loadingTimer)
         return
       }else{
         setTimeout(()=> {
@@ -75,11 +71,8 @@ function App() {
     }
 
   }, [])
-  // useEffect(() => {
-  //   setDisplayLoad(percentLoad.current)
-  //   console.log(displayLoad)
-  // }, [percentLoad.current])
-
+  
+  
   useEffect(() => {
     if (anonKey) return
     else{
@@ -165,7 +158,8 @@ function App() {
   };
 
   useEffect(() => {
-    document.body.className = theme;
+    localStorage.setItem('theme', theme)
+    document.body.className = localStorage.getItem('theme');
   }, [theme]);
 
   return (
@@ -187,9 +181,10 @@ function App() {
                             <Toggle theme={theme} toggleTheme={toggleTheme} />
                           </div>
                           <Link to='/'>
-                              <h1>Acrölix</h1>
+                              <h1 onClick={()=>setStopTyping(false)}>Acrölix</h1>
                           </Link>
-                          <TypeWriter stopTyping={stopTyping}/>
+                          {console.log('stop typing in app is', stopTyping)}
+                          <TypeWriter stopTyping={stopTyping} setStopTyping={setStopTyping}/>
                           <div className='ui'>
                             <Form
                               validInput={validInput}

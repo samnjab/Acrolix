@@ -19,8 +19,6 @@ function Login({ isLoggedIn, setIsLoggedIn, setUserKey }) {
 
   const logout = () => {
     signOut(auth);
-    localStorage.clear();
-    window.location.reload();
     setIsLoggedIn(false);
     setUserKey('');
   };

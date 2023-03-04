@@ -29,8 +29,9 @@ input[type ='checkbox']{
 
 .toggle{
     position:relative;
+    z-index:30;
+    margin:0 10px;
     background-color: $darkBackground;
-    // color:$darkBodyText;
     display:flex;
     width:2rem;
     height:2rem;
@@ -38,12 +39,26 @@ input[type ='checkbox']{
     justify-content: center;
     align-items: center;
     transition: 0.2s;
-    &:hover,
-    &:focus { 
-        
-    }
     .toggleIcon{ 
         font-size:1rem; 
+    }
+}
+.toggleCanvas{
+    position:relative;
+    z-index:30;
+    margin:0 10px;
+    background-color: $darkBackground;
+    display:flex;
+    width:2rem;
+    height:2rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+    .toggleCanvasIcon {
+        font-size: 0.75rem;
+        color:$darkBodyText;
+        font-weight: 400;
     }
 }
 

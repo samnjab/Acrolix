@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 // Components
 import Canvas from './Components/Canvas';
+import ToggleCanvas from './Components/ToggleCanvas';
 import Form from './Components/Form';
 import Results from './Components/Results';
 import SavedBackronyms from './Components/SavedBackronyms';
@@ -26,8 +27,9 @@ function App() {
   const [displayLoad, setDisplayLoad] = useState(0)
   const [activeKey, setActiveKey] = useState('');
   const [anonKey, setAnonKey] = useState(localStorage.getItem('anonKey') || '');
-  const [windowDims, setWindowDims ]= useState([window.innerWidth, window.innerHeight])
-  const [scrollTop, setScrollTop] = useState(0)
+  const [windowDims, setWindowDims ]= useState([window.innerWidth, window.innerHeight]);
+  const [scrollTop, setScrollTop] = useState(0);
+  const [canvasOn, setCanvasOn] = useState(true)
   const [endpoint, setEndpoint] = useState('anon/');
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -177,7 +179,7 @@ function App() {
     <> {begin ?
       <div className={`App ${theme}`} >
         <div className='layout'>
-          <Canvas windowDims={windowDims} scrollTop={scrollTop} theme={theme}/>
+          {canvasOn ? <Canvas windowDims={windowDims} scrollTop={scrollTop} theme={theme}/> : <></>}
               <Routes>
                 <Route path='/' element={
                   <>
@@ -190,6 +192,7 @@ function App() {
                               setUserKey={setUserKey}
                             />
                             <Toggle theme={theme} toggleTheme={toggleTheme} />
+                            <ToggleCanvas canvasOn={canvasOn} setCanvasOn={setCanvasOn} />
                           </div>
                           <h1 onClick={()=>setStopTyping(false)}>Acrölix</h1>
                           <TypeWriter stopTyping={stopTyping} setStopTyping={setStopTyping}/>

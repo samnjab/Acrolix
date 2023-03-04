@@ -35,6 +35,12 @@
     .toggle{
         background-color: $lightBackground;
     }
+    .toggleCanvas{
+        background-color: $lightBackground;
+        .toggleCanvasIcon{
+            color:$secondaryLightText;
+        }
+    }
     .signIn{
         color:$bold;
     }
@@ -51,3 +57,4 @@
 .light footer a {
     color: $lightBgTextColor
 }
+

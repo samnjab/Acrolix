@@ -5,11 +5,11 @@ export default function Canvas({windowDims, scrollTop, theme}){
 
     useEffect(()=> {
         currentScroll.current = scrollTop
-        const timer = setInterval(() => {
+        const timer = setTimeout(() => {
             prevScroll.current = currentScroll.current
         }, 1000)
         return () => {
-            clearInterval(timer)
+            clearTimeout(timer)
         }
     },[scrollTop])
     const canvasRef = useRef(null)
